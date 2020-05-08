@@ -13,7 +13,7 @@ import pl.lodz.p.it.zzpj.dogs.MongoUserDetailsService;
 @Configuration
 @EnableWebSecurity
 @AllArgsConstructor
-public class SecurityConfig extends WebSecurityConfigurerAdapter {
+public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     private final MongoUserDetailsService userDetailsService;
 
