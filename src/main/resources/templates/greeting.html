@@ -5,6 +5,11 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     </head>
     <body>
-        <p th:text="'Hello, ' + ${name} + '!'" />
+        <div style="text-align: center">
+            <a th:href="@{/dog}">Yes yes GPS</a>
+            <div>
+                <img width="600px" height="400px" th:src="${image}"/>
+            </div>
+        </div>
     </body>
 </html>
