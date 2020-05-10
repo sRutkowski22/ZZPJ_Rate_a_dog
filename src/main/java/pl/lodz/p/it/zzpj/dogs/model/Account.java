@@ -18,8 +18,8 @@ public @Data class Account {
     private String id = UUID.randomUUID().toString();
     private String username;
     private String password;
-    private String firstname;
-    private String lastname;
+    private String firstName;
+    private String lastName;
     @Builder.Default
     private Map<String, Double> breedPreferences = new HashMap<>() {{
         put("affenpinscher", 1.0);
