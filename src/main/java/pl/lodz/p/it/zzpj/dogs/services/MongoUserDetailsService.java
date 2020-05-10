@@ -1,7 +1,6 @@
-package pl.lodz.p.it.zzpj.dogs;
+package pl.lodz.p.it.zzpj.dogs.services;
 
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -21,11 +20,11 @@ public class MongoUserDetailsService implements UserDetailsService {
     private final AccountRepository accountRepository;
 
     @Override
-    public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
-        if (accountRepository.findByLogin(login).isPresent()) {
-            Account account = accountRepository.findByLogin(login).get();
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        if (accountRepository.findByUsername(username).isPresent()) {
+            Account account = accountRepository.findByUsername(username).get();
             Collection<SimpleGrantedAuthority> authorities = Collections.singletonList(new SimpleGrantedAuthority("USER"));
-            return new User(account.getLogin(), account.getPassword(), authorities);
+            return new User(account.getUsername(), account.getPassword(), authorities);
         } else {
             throw new UsernameNotFoundException("User not found.");
         }
