@@ -23,7 +23,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.formLogin().and()
                 .authorizeRequests()
                 .antMatchers("/").permitAll()
-                .antMatchers("/**").hasRole("USER");
+                .antMatchers("/register.html").permitAll();
+//                .antMatchers("/**").hasRole("USER");
     }
 
     @Override
