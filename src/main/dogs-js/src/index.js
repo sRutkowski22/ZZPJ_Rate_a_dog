@@ -6,7 +6,8 @@ import App from "./App";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./index.css";
 
-axios.defaults.baseURL = "http://localhost:8080/api";
+// axios.defaults.baseURL = "http://localhost:8080/api";
+axios.defaults.baseURL = "https://rateadog.herokuapp.com/api";
 
 let cookies = new Cookies();
 let jwt = require("jsonwebtoken");
