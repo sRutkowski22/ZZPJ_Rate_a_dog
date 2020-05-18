@@ -16,7 +16,12 @@ public class ReviewService {
     private final ReviewRepository reviewRepository;
 
     public void addReview(Review review) {
-        reviewRepository.insert(review);
+        if(reviewRepository.findByUrlAndUsername(review.getUrl(), review.getUsername()).isPresent()) {
+            Review tmpReview = reviewRepository.findByUrlAndUsername(review.getUrl(), review.getUsername()).get();
+            tmpReview.setRating(review.getRating());
+            tmpReview.setCreationDate(review.getCreationDate());
+            reviewRepository.save(tmpReview);
+        } else reviewRepository.insert(review);
     }
 
     public List<Review> getAllReviews() {
