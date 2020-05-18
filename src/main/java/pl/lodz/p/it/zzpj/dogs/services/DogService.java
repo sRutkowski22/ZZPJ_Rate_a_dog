@@ -5,9 +5,11 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.AllArgsConstructor;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.*;
@@ -15,8 +17,9 @@ import java.util.*;
 import org.json.simple.JSONObject;
 
 @Service
-@AllArgsConstructor
 public class DogService {
+
+    Logger logger = LoggerFactory.getLogger(DogService.class);
 
     private final RestTemplate restTemplate = new RestTemplate();
     private final String randomByBreedBegin = "https://dog.ceo/api/breed/";
@@ -35,9 +38,15 @@ public class DogService {
     }
 
     public String getRandomDogByBreed(String breed) throws JsonProcessingException {
-        ResponseEntity<String> response = restTemplate.getForEntity(randomByBreedBegin + breed + randomByBreedEnd, String.class);
-        JSONObject jsonObject = parseResponseEntity(response);
-        String dogUrl = (String) jsonObject.get("message");
+        String dogUrl = "";
+        try{
+            ResponseEntity<String> response = restTemplate.getForEntity(randomByBreedBegin + breed + randomByBreedEnd, String.class);
+            JSONObject jsonObject = parseResponseEntity(response);
+            dogUrl = (String) jsonObject.get("message");
+        }
+        catch (HttpClientErrorException error){
+            logger.error("Breed not found: " + breed);
+        }
         return dogUrl;
     }
 
