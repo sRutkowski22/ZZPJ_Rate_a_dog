@@ -26,7 +26,7 @@ public class MongoUserDetailsService implements UserDetailsService {
             Collection<SimpleGrantedAuthority> authorities = Collections.singletonList(new SimpleGrantedAuthority("USER"));
             return new User(account.getUsername(), account.getPassword(), authorities);
         } else {
-            throw new UsernameNotFoundException("User not found.");
+            throw new UsernameNotFoundException("Account not found.");
         }
     }
 }

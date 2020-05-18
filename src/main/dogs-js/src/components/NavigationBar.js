@@ -8,7 +8,7 @@ export default class NavigationBar extends Component {
     render() {
         return (
             <Navbar expand="lg">
-                <Navbar.Brand>Notice board</Navbar.Brand>
+                <Navbar.Brand>Rate a dog</Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="ml-auto">
