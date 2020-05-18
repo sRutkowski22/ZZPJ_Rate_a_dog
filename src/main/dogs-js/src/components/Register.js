@@ -101,9 +101,9 @@ export default class Register extends Component {
                         <FormControl.Feedback type="invalid">Please provide a last name.</FormControl.Feedback>
                     </FormGroup>
                     <hr/>
-                    <Button onClick={this.handleSubmit}>Submit</Button>
+                    <Button onClick={this.handleSubmit} text="Submit"/>
                 </Form>
-                <Button onClick={this.props.history.goBack}>Back</Button>
+                <Button back onClick={this.props.history.goBack} text="Back"/>
             </div>
         );
     }

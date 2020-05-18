@@ -6,7 +6,6 @@ import Home from "./components/Home";
 import Login from "./components/Login";
 import Register from "./components/Register";
 import NotFound from "./components/NotFound";
-import EditAccount from "./components/EditAccount";
 
 export default class App extends Component {
 
@@ -20,7 +19,6 @@ export default class App extends Component {
                             <Route exact path="/" component={Home}/>
                             <Route exact path="/login" component={Login}/>
                             <Route exact path="/register" component={Register}/>
-                            <Route exact path="/account" component={EditAccount}/>
                             <Route component={NotFound}/>
                         </Switch>
                     </Container>

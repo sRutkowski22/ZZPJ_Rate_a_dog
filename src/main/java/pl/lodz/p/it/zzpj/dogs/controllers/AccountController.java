@@ -11,7 +11,6 @@ import pl.lodz.p.it.zzpj.dogs.services.AccountService;
 
 import java.util.List;
 
-@CrossOrigin
 @RestController
 @AllArgsConstructor
 public class AccountController {
@@ -47,6 +46,7 @@ public class AccountController {
                                @RequestBody AccountDto accountDto) throws AppBaseException {
         Account account = Account.builder()
                 .username(accountDto.getUsername())
+                .password(passwordEncoder.encode(accountDto.getPassword()))
                 .firstName(accountDto.getFirstName())
                 .lastName(accountDto.getLastName())
                 .build();
