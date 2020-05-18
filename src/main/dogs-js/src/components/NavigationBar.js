@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { Nav, Navbar } from 'react-bootstrap';
 import Cookies from "universal-cookie";
 import { currentUser } from "../index";
-import "./NavigationBar.css";
+import "./Main.css";
 
 export default class NavigationBar extends Component {
 
@@ -30,6 +30,17 @@ export default class NavigationBar extends Component {
                     <Nav.Item>
                         <Nav.Link>
                             <Link to="/" onClick={this.handleLogout}>Logout</Link>
+                        </Nav.Link>
+                    </Nav.Item>
+
+                    <Nav.Item>
+                        <Nav.Link>
+                            <Link to="/randomDog">Random dog</Link>
+                        </Nav.Link>
+                    </Nav.Item>
+                    <Nav.Item>
+                        <Nav.Link>
+                            <Link to="/randomBreedDog">Random dog by breed</Link>
                         </Nav.Link>
                     </Nav.Item>
                 </Nav>
