@@ -1,31 +1,42 @@
 import React, { Component } from "react";
+import { Button, Form, FormControl, FormGroup, FormLabel } from "react-bootstrap";
 import axios from "axios";
 import Cookies from "universal-cookie";
-import { Button, Form, FormControl, FormGroup, FormLabel } from "react-bootstrap";
+import {currentUser, jwtHeader} from "../index";
 
 export default class EditAccount extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            user: {"username": "", "password": ""},
-            valid: {"username": true, "password": true}
+            user: {},
+            valid: {"firstName": true, "lastName": true},
+            loaded: false
         };
         this.cookies = new Cookies();
     }
 
     componentDidMount = () => {
-
+        axios.get("/account/" + currentUser(), jwtHeader())
+            .then(response => {
+                this.setState({
+                    user: response.data,
+                    loaded: true
+                });
+            }).catch(error => {
+            console.log(error.response);
+            this.props.history.goBack();
+        });
     }
 
     validateProperty = (property) => {
         let tempValid = {...this.state.valid};
         switch (property) {
-            case "username":
-                tempValid["username"] = document.getElementById("username").value.length !== 0;
+            case "firstName":
+                tempValid["firstName"] = document.getElementById("firstName").value.length !== 0;
                 break;
-            case "password":
-                tempValid["password"] = document.getElementById("password").value.length >= 8;
+            case "lastName":
+                tempValid["lastName"] = document.getElementById("lastName").value.length !== 0;
                 break;
             default:
                 break;
@@ -43,8 +54,8 @@ export default class EditAccount extends Component {
     checkValidation = () => {
         let validated = true;
         let tempValid = {...this.state.valid};
-        tempValid["username"] = document.getElementById("username").value.length !== 0;
-        tempValid["password"] = document.getElementById("password").value.length >= 8;
+        tempValid["firstName"] = document.getElementById("firstName").value.length !== 0;
+        tempValid["lastName"] = document.getElementById("lastName").value.length >= 8;
         for (let key in tempValid) {
             if (tempValid.hasOwnProperty(key) && tempValid[key] === false) {
                 this.validateProperty(key);
@@ -57,9 +68,9 @@ export default class EditAccount extends Component {
 
     handleSubmit = () => {
         if (this.checkValidation()) {
-            axios.post("/login", this.state.user)
+            axios.put("/account/" + currentUser(), this.state.user, jwtHeader())
                 .then(response => {
-                    this.cookies.set("jwt", response.data["jwt"]);
+                    alert(response.status);
                     this.props.history.push("/");
                 }).catch(error => {
                 alert(error.response.data);
@@ -69,27 +80,40 @@ export default class EditAccount extends Component {
         }
     };
 
+    renderForm = () => {
+        if (this.state.loaded) {
+            return (
+                <Form>
+                    <FormGroup>
+                        <FormLabel>Username</FormLabel>
+                        <FormControl disabled={true} value={this.state.user["username"]}/>
+                    </FormGroup>
+
+                    <FormGroup>
+                        <FormLabel>First name</FormLabel>
+                        <FormControl id="firstName" value={this.state.user["firstName"]} onChange={(event) => this.handleChangeProperty(event, "firstName")} isInvalid={!this.state.valid["firstName"]}/>
+                        <FormControl.Feedback type="invalid">Please provide a first name.</FormControl.Feedback>
+                    </FormGroup>
+
+                    <FormGroup>
+                        <FormLabel>Last name</FormLabel>
+                        <FormControl id="lastName" value={this.state.user["lastName"]} onChange={(event) => this.handleChangeProperty(event, "lastName")} isInvalid={!this.state.valid["lastName"]}/>
+                        <FormControl.Feedback type="invalid">Please provide a last name.</FormControl.Feedback>
+                    </FormGroup>
+                    <hr/>
+                    <Button onClick={this.handleSubmit}>Submit</Button>
+                </Form>
+            );
+        }
+    }
+
     render() {
         return (
             <div>
                 <h1>Login</h1>
                 <hr/>
-                <Form>
-                    <FormGroup>
-                        <FormLabel>Username</FormLabel>
-                        <FormControl id="username" value={this.state.user["username"]} onChange={(event) => this.handleChangeProperty(event, "username")} isInvalid={!this.state.valid["username"]}/>
-                        <FormControl.Feedback id="control" type="invalid">Please provide a username.</FormControl.Feedback>
-                    </FormGroup>
-
-                    <FormGroup>
-                        <FormLabel>Password</FormLabel>
-                        <FormControl id="password" value={this.state.user["password"]} onChange={(event) => this.handleChangeProperty(event, "password")} isInvalid={!this.state.valid["password"]} type="password"/>
-                        <FormControl.Feedback type="invalid">Password must be at least 8 characters long.</FormControl.Feedback>
-                    </FormGroup>
-                    <hr/>
-                    <Button onClick={this.handleSubmit} text="Submit"/>
-                </Form>
-                <Button back onClick={this.props.history.goBack} text="Back"/>
+                {this.renderForm()}
+                <Button onClick={this.props.history.goBack}>Back</Button>
             </div>
         );
     }
