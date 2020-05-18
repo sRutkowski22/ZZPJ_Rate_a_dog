@@ -1,0 +1,26 @@
+.navbar {
+    background-color: #222;
+}
+
+a, .navbar-brand, .navbar-nav .nav-link {
+    color: white !important;
+}
+
+a:hover, .navbar-nav:hover, .nav-link:hover {
+    color: #bbb !important;
+}
+
+.image-div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 80vh;
+    width: 60vw;
+}
+
+.image-dog {
+    max-height: 100%;
+    max-width: 100%;
+    object-fit: contain;
+}
