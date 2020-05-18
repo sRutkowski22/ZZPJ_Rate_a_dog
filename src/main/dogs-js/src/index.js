@@ -6,7 +6,7 @@ import App from "./App";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./index.css";
 
-axios.defaults.baseURL = process.env.REACT_APP_API;
+axios.defaults.baseURL = "http://localhost:8080/api";
 
 let cookies = new Cookies();
 let jwt = require("jsonwebtoken");
