@@ -24,5 +24,13 @@ public class DogController {
         return dogService.getBreedList();
     }
 
+    @GetMapping("/dog/breed/random/{breed}")
+    public String getRandomDogByBreed(@PathVariable String breed) throws JsonProcessingException {
+        return dogService.getRandomDogByBreed(breed);
+    }
 
+    @GetMapping("/dog/random")
+    public String getRandomDog() throws JsonProcessingException {
+        return dogService.getRandomDog();
+    }
 }

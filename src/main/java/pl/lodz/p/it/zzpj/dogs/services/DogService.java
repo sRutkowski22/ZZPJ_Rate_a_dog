@@ -19,22 +19,43 @@ import org.json.simple.JSONObject;
 public class DogService {
 
     private final RestTemplate restTemplate = new RestTemplate();
+    private final String randomByBreedBegin = "https://dog.ceo/api/breed/";
+    private final String randomByBreedEnd = "/images/random";
+    private final String randomDogURL = "https://dog.ceo/api/breeds/image/random";
     private final String breedListURL = "https://dog.ceo/api/breeds/list/all";
     private final String resourceUrl = "https://dog.ceo/api/breeds/image/random";
 
-    @GetMapping("/dog/breedlist")
     public List<String> getBreedList() throws JsonProcessingException {
         ResponseEntity<String> response = restTemplate.getForEntity(breedListURL, String.class);
-        JSONParser jp = new JSONParser();
-        JSONObject jsonObject = null;
-        try {
-             jsonObject = (JSONObject) jp.parse(response.getBody());
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+        JSONObject jsonObject = parseResponseEntity(response);
         JSONObject breeds = (JSONObject) jsonObject.get("message");
         Set<String> entries = breeds.keySet();
         List<String> breedList = new ArrayList<>(entries);
         return breedList;
+    }
+
+    public String getRandomDogByBreed(String breed) throws JsonProcessingException {
+        ResponseEntity<String> response = restTemplate.getForEntity(randomByBreedBegin + breed + randomByBreedEnd, String.class);
+        JSONObject jsonObject = parseResponseEntity(response);
+        String dogUrl = (String) jsonObject.get("message");
+        return dogUrl;
+    }
+
+    public String getRandomDog() throws JsonProcessingException {
+        ResponseEntity<String> response = restTemplate.getForEntity(randomDogURL, String.class);
+        JSONObject jsonObject = parseResponseEntity(response);
+        String dogUrl = (String) jsonObject.get("message");
+        return dogUrl;
+    }
+
+    private JSONObject parseResponseEntity(ResponseEntity<String> response){
+        JSONParser jp = new JSONParser();
+        JSONObject jsonObject = null;
+        try {
+            jsonObject = (JSONObject) jp.parse(response.getBody());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return jsonObject;
     }
 }
