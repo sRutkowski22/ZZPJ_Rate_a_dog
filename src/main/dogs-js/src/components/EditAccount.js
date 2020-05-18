@@ -70,10 +70,10 @@ export default class EditAccount extends Component {
         if (this.checkValidation()) {
             axios.put("/account/" + currentUser(), this.state.user, jwtHeader())
                 .then(response => {
-                    this.cookies.set("jwt", response.data["jwt"]);
+                    alert(response.status);
                     this.props.history.push("/");
                 }).catch(error => {
-                console.log(error.response);
+                alert(error.response.data);
             });
         } else {
             alert("Please fill out every field in the form.");
@@ -101,7 +101,7 @@ export default class EditAccount extends Component {
                         <FormControl.Feedback type="invalid">Please provide a last name.</FormControl.Feedback>
                     </FormGroup>
                     <hr/>
-                    <Button onClick={this.handleSubmit} text="Submit"/>
+                    <Button onClick={this.handleSubmit}>Submit</Button>
                 </Form>
             );
         }
@@ -113,7 +113,7 @@ export default class EditAccount extends Component {
                 <h1>Login</h1>
                 <hr/>
                 {this.renderForm()}
-                <Button back onClick={this.props.history.goBack} text="Back"/>
+                <Button onClick={this.props.history.goBack}>Back</Button>
             </div>
         );
     }
