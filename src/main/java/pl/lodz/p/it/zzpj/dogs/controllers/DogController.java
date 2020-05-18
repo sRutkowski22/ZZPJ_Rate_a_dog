@@ -5,23 +5,21 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.repository.query.Param;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
-import pl.lodz.p.it.zzpj.dogs.model.Dog;
-import pl.lodz.p.it.zzpj.dogs.repositories.DogRepository;
+import pl.lodz.p.it.zzpj.dogs.model.Review;
+import pl.lodz.p.it.zzpj.dogs.repositories.ReviewRepository;
 
 @Slf4j
-@Controller
+@RestController
 @RequiredArgsConstructor
 public class DogController {
 
-    private final DogRepository dogRepository;
+    private final ReviewRepository reviewRepository;
     private final RestTemplate restTemplate = new RestTemplate();
     private final String resourceUrl = "https://dog.ceo/api/breeds/image/random";
 
@@ -34,11 +32,11 @@ public class DogController {
         JsonNode root = mapper.readTree(response.getBody());
         JsonNode message = root.path("message");
         String imageUrl = message.toString().replace("\"", "");
-        Dog dog = new Dog();
-        dog.setUrl(imageUrl);
-        dog.setBreed(imageUrl.substring(30, imageUrl.lastIndexOf("/")));
-        dogRepository.insert(dog);
-        model.addAttribute("image", dog.getUrl());
+        Review review = new Review();
+        review.setUrl(imageUrl);
+        review.setBreed(imageUrl.substring(30, imageUrl.lastIndexOf("/")));
+        reviewRepository.insert(review);
+        model.addAttribute("image", review.getUrl());
         return "greeting";
     }
 
@@ -55,11 +53,11 @@ public class DogController {
         root = mapper.readTree(response.getBody());
         JsonNode message = root.path("message");
         String imageUrl = message.toString().replace("\"", "");
-        Dog dog = new Dog();
-        dog.setUrl(imageUrl);
-        dog.setBreed(imageUrl.substring(30, imageUrl.lastIndexOf("/")));
-        dogRepository.insert(dog);
-        model.addAttribute("imageByBreed", dog.getUrl());
+        Review review = new Review();
+        review.setUrl(imageUrl);
+        review.setBreed(imageUrl.substring(30, imageUrl.lastIndexOf("/")));
+        reviewRepository.insert(review);
+        model.addAttribute("imageByBreed", review.getUrl());
         return "greeting";
     }
 }
