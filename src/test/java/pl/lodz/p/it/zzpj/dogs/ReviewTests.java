@@ -5,6 +5,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.annotation.Import;
 import pl.lodz.p.it.zzpj.dogs.model.Review;
 import pl.lodz.p.it.zzpj.dogs.repositories.ReviewRepository;
 import pl.lodz.p.it.zzpj.dogs.services.ReviewService;
@@ -18,11 +19,12 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 @SpringBootTest
+@Import(TestMongoConfiguration.class)
 public class ReviewTests {
 
-    ReviewRepository repository;
-    ReviewService reviewService;
-    List<Review> reviews;
+    private ReviewRepository repository;
+    private ReviewService reviewService;
+    private List<Review> reviews;
 
     @BeforeEach
     void prepare() {
