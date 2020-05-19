@@ -24,3 +24,23 @@ a:hover, .navbar-nav:hover, .nav-link:hover {
     max-width: 100%;
     object-fit: contain;
 }
+
+.confirm-button {
+    margin-top: 10px;
+}
+
+.ratings {
+    text-align: center;
+    margin-top: 20px;
+    transform: scale(2);
+}
+
+.buttons {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.divider {
+    width: 10px;
+    display: inline-block;
+}
