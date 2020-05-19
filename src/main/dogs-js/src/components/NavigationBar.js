@@ -45,8 +45,6 @@ export default class NavigationBar extends Component {
                     {/*</Nav.Item>*/}
                 </Nav>
             );
-        } else {
-            return <React.Fragment/>;
         }
     }
 
@@ -67,14 +65,12 @@ export default class NavigationBar extends Component {
                     </Nav.Item>
                 </Nav>
             );
-        } else {
-            return <React.Fragment/>;
         }
     }
 
     render() {
         return (
-            <Navbar expand="lg">
+            <Navbar expand="lg" className="navbar-dark">
                 <Navbar.Brand href="/">Rate a dog</Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav"/>
                 <Navbar.Collapse id="basic-navbar-nav">
