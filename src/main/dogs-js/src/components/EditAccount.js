@@ -101,7 +101,7 @@ export default class EditAccount extends Component {
                         <FormControl.Feedback type="invalid">Please provide a last name.</FormControl.Feedback>
                     </FormGroup>
                     <hr/>
-                    <Button onClick={this.handleSubmit}>Submit</Button>
+                    <Button variant="dark" onClick={this.handleSubmit}>Submit</Button>
                 </Form>
             );
         }
@@ -113,7 +113,7 @@ export default class EditAccount extends Component {
                 <h1>Login</h1>
                 <hr/>
                 {this.renderForm()}
-                <Button onClick={this.props.history.goBack}>Back</Button>
+                <Button variant="dark" onClick={this.props.history.goBack}>Back</Button>
             </div>
         );
     }

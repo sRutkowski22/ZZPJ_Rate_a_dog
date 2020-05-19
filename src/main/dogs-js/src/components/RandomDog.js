@@ -35,7 +35,7 @@ export default class RandomDog extends Component {
                 <div className="image-div">
                     <img className="image-dog" src={this.state.dogUrl} />
                 </div>
-                <Button onClick={() => this.getRandomDog()}>Next dog</Button>
+                <Button variant="dark" onClick={() => this.getRandomDog()}>Next dog</Button>
             </div>
         )
     }

@@ -84,9 +84,9 @@ export default class Login extends Component {
                         <FormControl.Feedback type="invalid">Please provide a password.</FormControl.Feedback>
                     </FormGroup>
                     <hr/>
-                    <Button onClick={this.handleSubmit}>Submit</Button>
+                    <Button variant="dark" onClick={this.handleSubmit}>Submit</Button>
                 </Form>
-                <Button onClick={this.props.history.goBack}>Back</Button>
+                <Button variant="dark" onClick={this.props.history.goBack}>Back</Button>
             </div>
         );
     }
