@@ -39,7 +39,6 @@ export default class RandomDog extends Component {
         const { rating } = this.state;
         return (
             <div>
-                <h1>Random dog</h1>
                 <div className="image-div">
                     <img className="image-dog" src={this.state.dogUrl} />
                     <div class="ratings">
