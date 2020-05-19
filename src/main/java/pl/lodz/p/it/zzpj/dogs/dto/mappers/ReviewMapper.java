@@ -3,6 +3,8 @@ package pl.lodz.p.it.zzpj.dogs.dto.mappers;
 import pl.lodz.p.it.zzpj.dogs.dto.ReviewDto;
 import pl.lodz.p.it.zzpj.dogs.model.Review;
 
+import java.time.LocalDateTime;
+
 public class ReviewMapper {
 
     public static ReviewDto mapToDto(Review review) {
@@ -18,10 +20,10 @@ public class ReviewMapper {
     public static Review mapFromDto(ReviewDto reviewDto) {
         return Review.builder()
                 .url(reviewDto.getUrl())
-                .breed(reviewDto.getBreed())
+                .breed(reviewDto.getUrl().substring(30, reviewDto.getUrl().lastIndexOf("/")))
                 .rating(reviewDto.getRating())
                 .username(reviewDto.getUsername())
-                .creationDate(reviewDto.getCreationDate())
+                .creationDate(LocalDateTime.now())
                 .build();
     }
 }

@@ -7,6 +7,7 @@ a, .navbar-brand, .navbar-nav .nav-link {
 }
 
 .image-div {
+    padding-top: 120px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -19,4 +20,24 @@ a, .navbar-brand, .navbar-nav .nav-link {
     max-height: 100%;
     max-width: 100%;
     object-fit: contain;
+}
+
+.confirm-button {
+    margin-top: 10px;
+}
+
+.ratings {
+    text-align: center;
+    margin-top: 20px;
+    transform: scale(2);
+}
+
+.buttons {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.divider {
+    width: 10px;
+    display: inline-block;
 }
