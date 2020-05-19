@@ -63,9 +63,9 @@ export default class RandomDog extends Component {
                             onStarClick={this.changeRating.bind(this)} />
                     </div>
                     <div class="buttons">
-                        <Button name="rate-button" onClick={() => this.rateDog()} >Rate</Button>
+                        <Button variant="dark" name="rate-button" onClick={() => this.rateDog()} >Rate</Button>
                         <div class="divider" />
-                        <Button name="confirm-button" onClick={() => this.getRandomDog()}>Next dog</Button>
+                        <Button variant="dark" name="confirm-button" onClick={() => this.getRandomDog()}>Next dog</Button>
                     </div>
                 </div>
             </div>

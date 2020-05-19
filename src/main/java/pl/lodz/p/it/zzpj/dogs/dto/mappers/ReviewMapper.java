@@ -6,6 +6,7 @@ import pl.lodz.p.it.zzpj.dogs.model.Review;
 import java.time.LocalDateTime;
 
 public class ReviewMapper {
+
     public static ReviewDto mapToDto(Review review) {
         return ReviewDto.builder()
                 .url(review.getUrl())

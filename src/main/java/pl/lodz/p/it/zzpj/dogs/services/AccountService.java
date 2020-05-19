@@ -1,6 +1,7 @@
 package pl.lodz.p.it.zzpj.dogs.services;
 
 import lombok.AllArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import pl.lodz.p.it.zzpj.dogs.exceptions.AccountException;
 import pl.lodz.p.it.zzpj.dogs.exceptions.AppBaseException;
@@ -14,9 +15,11 @@ import java.util.List;
 public class AccountService {
 
     private final AccountRepository accountRepository;
+    private final PasswordEncoder passwordEncoder;
 
     public void addAccount(Account account) throws AppBaseException {
         if (accountRepository.findByUsername(account.getUsername()).isEmpty()) {
+            account.setPassword(passwordEncoder.encode(account.getPassword()));
             accountRepository.insert(account);
         } else {
             throw new AccountException("Account already exists.");
@@ -39,6 +42,9 @@ public class AccountService {
         if (accountRepository.findByUsername(username).isPresent()) {
             Account temp = accountRepository.findByUsername(username).get();
             if (username.equals(account.getUsername())) {
+                if (account.getPassword() != null) {
+                    temp.setPassword(passwordEncoder.encode(account.getPassword()));
+                }
                 temp.setFirstName(account.getFirstName());
                 temp.setLastName(account.getLastName());
                 accountRepository.save(temp);
