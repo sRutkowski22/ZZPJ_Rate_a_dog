@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 import {Button} from "react-bootstrap";
 import StarRatingComponent from 'react-star-rating-component';
+import {currentUser, jwtHeader} from "../index";
 
 export default class RandomDog extends Component {
 
@@ -29,11 +30,24 @@ export default class RandomDog extends Component {
         });
     };
 
-    changeRating(newRating, oldRating, name) {
+    changeRating(newRating) {
         this.setState({
             rating: newRating
         });
     }
+
+    rateDog = () => {
+        if(this.state.rating > 0) {
+            axios.post("/review", {
+                "url": this.state.dogUrl,
+                "rating": this.state.rating,
+                "username": currentUser()
+            }, jwtHeader())
+                .catch(error => {
+                    console.log(error.response);
+                })
+        }
+    };
 
     render() {
         const { rating } = this.state;
@@ -49,7 +63,7 @@ export default class RandomDog extends Component {
                             onStarClick={this.changeRating.bind(this)} />
                     </div>
                     <div class="buttons">
-                        <Button name="rate-button"  >Rate</Button>
+                        <Button name="rate-button" onClick={() => this.rateDog()} >Rate</Button>
                         <div class="divider" />
                         <Button name="confirm-button" onClick={() => this.getRandomDog()}>Next dog</Button>
                     </div>
