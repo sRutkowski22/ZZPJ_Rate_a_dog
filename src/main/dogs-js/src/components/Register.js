@@ -7,8 +7,8 @@ export default class Register extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            user: {"username": "", "password": "", "firstName": "", "lastName": ""},
-            valid: {"username": true, "password": true, "firstName": true, "lastName": true}
+            user: {"username": "", "password": "", "confirmPassword": "", "firstName": "", "lastName": ""},
+            valid: {"username": true, "password": true, "confirmPassword": true, "firstName": true, "lastName": true}
         };
     }
 
@@ -20,6 +20,9 @@ export default class Register extends Component {
                 break;
             case "password":
                 tempValid["password"] = document.getElementById("password").value.length >= 8;
+                break;
+            case "confirmPassword":
+                tempValid["confirmPassword"] = document.getElementById("confirmPassword").value === document.getElementById("password").value;
                 break;
             case "firstName":
                 tempValid["firstName"] = document.getElementById("firstName").value.length !== 0;
@@ -45,6 +48,7 @@ export default class Register extends Component {
         let tempValid = {...this.state.valid};
         tempValid["username"] = document.getElementById("username").value.length !== 0;
         tempValid["password"] = document.getElementById("password").value.length >= 8;
+        tempValid["confirmPassword"] = document.getElementById("confirmPassword").value === document.getElementById("password").value;
         tempValid["firstName"] = document.getElementById("firstName").value.length !== 0;
         tempValid["lastName"] = document.getElementById("lastName").value.length !== 0;
         for (let key in tempValid) {
@@ -59,6 +63,8 @@ export default class Register extends Component {
 
     handleSubmit = () => {
         if (this.checkValidation()) {
+            delete this.state.user["confirmPassword"];
+            console.log(this.state.user);
             axios.post("/register", this.state.user)
                 .then(response => {
                     alert(response.data);
@@ -90,6 +96,12 @@ export default class Register extends Component {
                     </FormGroup>
 
                     <FormGroup>
+                        <FormLabel>Confirm password</FormLabel>
+                        <FormControl id="confirmPassword" value={this.state.user["confirmPassword"]} onChange={(event) => this.handleChangeProperty(event, "confirmPassword")} isInvalid={!this.state.valid["confirmPassword"]} type="password"/>
+                        <FormControl.Feedback type="invalid">Passwords must match.</FormControl.Feedback>
+                    </FormGroup>
+
+                    <FormGroup>
                         <FormLabel>First name</FormLabel>
                         <FormControl id="firstName" value={this.state.user["firstName"]} onChange={(event) => this.handleChangeProperty(event, "firstName")} isInvalid={!this.state.valid["firstName"]}/>
                         <FormControl.Feedback type="invalid">Please provide a first name.</FormControl.Feedback>
@@ -101,9 +113,9 @@ export default class Register extends Component {
                         <FormControl.Feedback type="invalid">Please provide a last name.</FormControl.Feedback>
                     </FormGroup>
                     <hr/>
-                    <Button onClick={this.handleSubmit}>Submit</Button>
+                    <Button variant="dark" onClick={this.handleSubmit}>Submit</Button>
                 </Form>
-                <Button onClick={this.props.history.goBack}>Back</Button>
+                <Button variant="dark" onClick={this.props.history.goBack}>Back</Button>
             </div>
         );
     }
