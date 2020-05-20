@@ -4,6 +4,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Import;
 import pl.lodz.p.it.zzpj.dogs.model.Review;
@@ -20,6 +21,7 @@ import static org.mockito.Mockito.when;
 
 @SpringBootTest
 @Import(TestMongoConfiguration.class)
+@ExtendWith(TestSuiteExtension.class)
 public class ReviewTests {
 
     private ReviewRepository repository;
