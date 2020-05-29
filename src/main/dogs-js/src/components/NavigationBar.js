@@ -38,6 +38,12 @@ export default class NavigationBar extends Component {
                             <Link id="randomDog" to="/randomDog">Random dog</Link>
                         </Nav.Link>
                     </Nav.Item>
+
+                    <Nav.Item>
+                        <Nav.Link>
+                            <Link to="/ratedDogs">Rated dogs</Link>
+                        </Nav.Link>
+                    </Nav.Item>
                     {/*<Nav.Item>*/}
                     {/*    <Nav.Link>*/}
                     {/*        <Link to="/randomBreedDog">Random dog by breed</Link>*/}
