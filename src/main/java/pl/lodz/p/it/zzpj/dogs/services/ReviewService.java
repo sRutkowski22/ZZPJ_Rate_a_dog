@@ -31,7 +31,7 @@ public class ReviewService {
     public Review getReview(String url, String username) throws ReviewException {
         if(reviewRepository.findByUrlAndUsername(url, username).isPresent())
             return reviewRepository.findByUrlAndUsername(url, username).get();
-        else throw new ReviewException("Review does not exists");
+        else throw new ReviewException("Review does not exist");
     }
 
     public List<Review> getAllReviewsForUser(String username) {
@@ -48,5 +48,13 @@ public class ReviewService {
 
     public List<Review> getAllReviewsBetweenDate(LocalDateTime firstDate, LocalDateTime secondDate) {
         return reviewRepository.findAllByCreationDateBetween(firstDate, secondDate);
+    }
+
+    public void deleteReview(String url, String username) throws ReviewException {
+        if(reviewRepository.findByUrlAndUsername(url, username).isPresent()) {
+            reviewRepository.deleteByUrlAndUsername(url, username);
+        } else {
+            throw new ReviewException("Review does not exist");
+        }
     }
 }

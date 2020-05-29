@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import { Button, Form, FormControl, FormGroup, FormLabel } from "react-bootstrap";
+import swal from "sweetalert";
 
 export default class Register extends Component {
 
@@ -67,10 +68,12 @@ export default class Register extends Component {
             console.log(this.state.user);
             axios.post("/register", this.state.user)
                 .then(response => {
-                    alert(response.data);
-                    this.props.history.push("/");
+                    if (response.status === 200) {
+                        alert("Registered successfully.");
+                        this.props.history.push("/");
+                    }
                 }).catch(error => {
-                alert(error.response.data);
+                alert("An error occurred. Please try again.");
             });
         } else {
             alert("Please fill out every field in the form.");
@@ -113,9 +116,9 @@ export default class Register extends Component {
                         <FormControl.Feedback type="invalid">Please provide a last name.</FormControl.Feedback>
                     </FormGroup>
                     <hr/>
-                    <Button variant="dark" onClick={this.handleSubmit}>Submit</Button>
+                    <Button id="submit" variant="dark" onClick={this.handleSubmit}>Submit</Button>
                 </Form>
-                <Button variant="dark" onClick={this.props.history.goBack}>Back</Button>
+                <Button id="back" variant="dark" onClick={this.props.history.goBack}>Back</Button>
             </div>
         );
     }

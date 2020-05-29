@@ -6,8 +6,7 @@ import App from "./App";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./index.css";
 
-// axios.defaults.baseURL = "http://localhost:8080/api";
-axios.defaults.baseURL = "https://rateadog.herokuapp.com/api";
+axios.defaults.baseURL = process.env.REACT_APP_API;
 
 let cookies = new Cookies();
 let jwt = require("jsonwebtoken");
@@ -29,8 +28,8 @@ export const currentUser = () => {
 };
 
 ReactDOM.render(
-<React.StrictMode>
-<App/>
-</React.StrictMode>,
-document.getElementById("root")
+    <React.StrictMode>
+        <App/>
+    </React.StrictMode>,
+    document.getElementById("root")
 );
