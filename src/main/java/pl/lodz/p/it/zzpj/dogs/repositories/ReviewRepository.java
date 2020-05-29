@@ -16,4 +16,5 @@ public interface ReviewRepository extends MongoRepository<Review, String> {
     List<Review> findAllByBreed(String breed);
     List<Review> findAllByCreationDateBetween(LocalDateTime firstDate, LocalDateTime secondDate);
     Optional<Review> findByUrlAndUsername(String url, String username);
+    void deleteByUrlAndUsername(String url, String username);
 }

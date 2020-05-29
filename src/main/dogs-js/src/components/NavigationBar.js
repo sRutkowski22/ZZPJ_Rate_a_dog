@@ -72,7 +72,7 @@ export default class NavigationBar extends Component {
         return (
             <Navbar expand="lg" className="navbar-dark">
                 <Navbar.Brand id="home" as={Link} to="/">Rate a dog</Navbar.Brand>
-                <Navbar.Toggle aria-controls="basic-navbar-nav"/>
+                <Navbar.Toggle id="toggle" aria-controls="basic-navbar-nav"/>
                 <Navbar.Collapse id="basic-navbar-nav">
                     {this.renderForUser()}
                     {this.renderForGuest()}

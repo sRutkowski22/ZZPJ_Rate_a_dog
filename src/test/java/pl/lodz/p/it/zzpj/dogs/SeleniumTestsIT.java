@@ -5,6 +5,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
@@ -21,16 +22,18 @@ import static org.springframework.boot.test.context.SpringBootTest.WebEnvironmen
 @SpringBootTest(webEnvironment = DEFINED_PORT)
 @Import(TestMongoConfiguration.class)
 @ExtendWith(TestSuiteExtension.class)
-public class LoginTestsIT {
+public class SeleniumTestsIT {
 
     private WebDriver driver;
+    private WebDriverWait wait;
 
     @BeforeEach
     public void setUp() {
         WebDriverManager.getInstance(ChromeDriver.class).setup();
         ChromeOptions options = new ChromeOptions();
-//        options.setHeadless(true);
+        options.setHeadless(true);
         driver = new ChromeDriver(options);
+        wait = new WebDriverWait(driver, 30);
     }
 
     @AfterEach
@@ -40,9 +43,10 @@ public class LoginTestsIT {
     }
 
     @Test
-    public void loginTest() {
+    public void registerTest() {
+        //register
         driver.get("http://localhost:8080/");
-        driver.manage().window().setSize(new Dimension(1059, 877));
+        driver.manage().window().setSize(new Dimension(1920, 1080));
         driver.findElement(By.id("register")).click();
         driver.findElement(By.id("username")).click();
         driver.findElement(By.id("username")).sendKeys("selenium");
@@ -51,24 +55,29 @@ public class LoginTestsIT {
         driver.findElement(By.id("firstName")).sendKeys("integration");
         driver.findElement(By.id("lastName")).sendKeys("test");
         driver.findElement(By.id("submit")).click();
-        WebDriverWait wait = new WebDriverWait(driver, 30);
         wait.until(ExpectedConditions.alertIsPresent());
-        driver.switchTo().alert().accept();
+        Alert alert = driver.switchTo().alert();
+        assertEquals("Registered successfully.", alert.getText());
+        alert.accept();
 
+        //login
         driver.findElement(By.id("login")).click();
         driver.findElement(By.id("username")).click();
         driver.findElement(By.id("username")).sendKeys("selenium");
         driver.findElement(By.id("password")).sendKeys("password");
         driver.findElement(By.id("submit")).click();
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("account")));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("logout")));
+        assertEquals("Welcome, selenium", driver.findElement(By.id("greeting")).getText());
 
+        //accountDetails
         driver.findElement(By.id("account")).click();
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("firstName")));
         assertEquals("integration", driver.findElement(By.id("firstName")).getAttribute("value"));
         assertEquals("test", driver.findElement(By.id("lastName")).getAttribute("value"));
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("logout")));
 
+        //logout
         driver.findElement(By.id("logout")).click();
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("login")));
         assertEquals("Welcome, guest", driver.findElement(By.id("greeting")).getText());
     }
 }

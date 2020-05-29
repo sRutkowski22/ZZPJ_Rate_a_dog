@@ -1,8 +1,6 @@
 package pl.lodz.p.it.zzpj.dogs.services;
 
-
-import com.fasterxml.jackson.core.JsonProcessingException;
-import lombok.AllArgsConstructor;
+import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.slf4j.Logger;
@@ -12,9 +10,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.*;
-
-import org.json.simple.JSONObject;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 @Service
 public class DogService {
@@ -28,7 +26,7 @@ public class DogService {
     private final String breedListURL = "https://dog.ceo/api/breeds/list/all";
     private final String resourceUrl = "https://dog.ceo/api/breeds/image/random";
 
-    public List<String> getBreedList() throws JsonProcessingException {
+    public List<String> getBreedList() {
         ResponseEntity<String> response = restTemplate.getForEntity(breedListURL, String.class);
         JSONObject jsonObject = parseResponseEntity(response);
         JSONObject breeds = (JSONObject) jsonObject.get("message");
@@ -37,9 +35,9 @@ public class DogService {
         return breedList;
     }
 
-    public String getRandomDogByBreed(String breed) throws JsonProcessingException {
+    public String getRandomDogByBreed(String breed) {
         String dogUrl = "";
-        try{
+        try {
             ResponseEntity<String> response = restTemplate.getForEntity(randomByBreedBegin + breed + randomByBreedEnd, String.class);
             JSONObject jsonObject = parseResponseEntity(response);
             dogUrl = (String) jsonObject.get("message");
@@ -50,14 +48,14 @@ public class DogService {
         return dogUrl;
     }
 
-    public String getRandomDog() throws JsonProcessingException {
+    public String getRandomDog() {
         ResponseEntity<String> response = restTemplate.getForEntity(randomDogURL, String.class);
         JSONObject jsonObject = parseResponseEntity(response);
         String dogUrl = (String) jsonObject.get("message");
         return dogUrl;
     }
 
-    private JSONObject parseResponseEntity(ResponseEntity<String> response){
+    private JSONObject parseResponseEntity(ResponseEntity<String> response) {
         JSONParser jp = new JSONParser();
         JSONObject jsonObject = null;
         try {
