@@ -1,10 +1,8 @@
 import React, {Component} from 'react';
 import paginationFactory from "react-bootstrap-table2-paginator";
 import BootstrapTable from "react-bootstrap-table-next";
-import {Link} from "react-router-dom";
 import axios from "axios";
-import {Image} from "react-bootstrap";
-import row from "react-select";
+
 export default class RatedDogs extends Component{
 
     constructor(props) {
