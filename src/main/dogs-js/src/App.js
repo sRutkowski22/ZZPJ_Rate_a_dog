@@ -8,6 +8,7 @@ import Register from "./components/Register";
 import NotFound from "./components/NotFound";
 import EditAccount from "./components/EditAccount";
 import RandomDog from "./components/RandomDog";
+import RatedDogs from "./components/RatedDogs";
 // import RandomBreedDog from "./components/RandomBreedDog";
 
 export default class App extends Component {
@@ -24,6 +25,7 @@ export default class App extends Component {
                             <Route exact path="/register" component={Register}/>
                             <Route exact path="/account" component={EditAccount}/>
                             <Route exact path="/randomDog" component={RandomDog}/>
+                            <Route exact path="/ratedDogs" component={RatedDogs}/>
                             {/*<Route exact path="/randomBreedDog" component={RandomBreedDog}/>*/}
                             <Route component={NotFound}/>
                         </Switch>
