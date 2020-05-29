@@ -29,7 +29,7 @@ export default class NavigationBar extends Component {
 
                     <Nav.Item>
                         <Nav.Link>
-                            <Link id="register" to="/" onClick={this.handleLogout}>Logout</Link>
+                            <Link id="logout" to="/" onClick={this.handleLogout}>Logout</Link>
                         </Nav.Link>
                     </Nav.Item>
 

@@ -63,8 +63,10 @@ public class LoginTestsIT {
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("account")));
 
         driver.findElement(By.id("account")).click();
-        assertEquals("integration", driver.findElement(By.id("firstName")).getText());
-        assertEquals("test", driver.findElement(By.id("lastName")).getText());
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("firstName")));
+        assertEquals("integration", driver.findElement(By.id("firstName")).getAttribute("value"));
+        assertEquals("test", driver.findElement(By.id("lastName")).getAttribute("value"));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("logout")));
 
         driver.findElement(By.id("logout")).click();
         assertEquals("Welcome, guest", driver.findElement(By.id("greeting")).getText());
