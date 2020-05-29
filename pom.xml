@@ -16,14 +16,10 @@
 
 	<properties>
 		<java.version>11</java.version>
+		<react.app.api>http://localhost:8080/apitest</react.app.api>
 	</properties>
 
 	<dependencies>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-properties-migrator</artifactId>
-			<scope>runtime</scope>
-		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
@@ -57,13 +53,24 @@
 		</dependency>
 
 		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
 			<groupId>de.flapdoodle.embed</groupId>
 			<artifactId>de.flapdoodle.embed.mongo</artifactId>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-			<groupId>org.springframework.security</groupId>
-			<artifactId>spring-security-test</artifactId>
+			<groupId>org.seleniumhq.selenium</groupId>
+			<artifactId>selenium-java</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>io.github.bonigarcia</groupId>
+			<artifactId>webdrivermanager</artifactId>
+			<version>4.0.0</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
@@ -111,7 +118,7 @@
 							<goal>install-node-and-npm</goal>
 						</goals>
 						<configuration>
-							<nodeVersion>v12.16.3</nodeVersion>
+							<nodeVersion>v12.17.0</nodeVersion>
 						</configuration>
 					</execution>
 					<execution>
@@ -130,6 +137,9 @@
 						</goals>
 						<configuration>
 							<arguments>run build</arguments>
+							<environmentVariables>
+								<REACT_APP_API>${react.app.api}</REACT_APP_API>
+							</environmentVariables>
 						</configuration>
 					</execution>
 				</executions>

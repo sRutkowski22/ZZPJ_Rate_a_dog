@@ -14,6 +14,7 @@ export default class NavigationBar extends Component {
 
     handleLogout = () => {
         this.cookies.remove("jwt");
+        this.props.history.push("/");
         window.location.reload();
     }
 
@@ -23,19 +24,19 @@ export default class NavigationBar extends Component {
                 <Nav className="ml-auto">
                     <Nav.Item>
                         <Nav.Link>
-                            <Link to="/account">My profile</Link>
+                            <Link id="account" to="/account">My profile</Link>
                         </Nav.Link>
                     </Nav.Item>
 
                     <Nav.Item>
                         <Nav.Link>
-                            <Link to="/" onClick={this.handleLogout}>Logout</Link>
+                            <Link id="register" to="/" onClick={this.handleLogout}>Logout</Link>
                         </Nav.Link>
                     </Nav.Item>
 
                     <Nav.Item>
                         <Nav.Link>
-                            <Link to="/randomDog">Random dog</Link>
+                            <Link id="randomDog" to="/randomDog">Random dog</Link>
                         </Nav.Link>
                     </Nav.Item>
                     {/*<Nav.Item>*/}
@@ -54,13 +55,13 @@ export default class NavigationBar extends Component {
                 <Nav className="ml-auto">
                     <Nav.Item>
                         <Nav.Link>
-                            <Link to="/login">Login</Link>
+                            <Link id="login" to="/login">Login</Link>
                         </Nav.Link>
                     </Nav.Item>
 
                     <Nav.Item>
                         <Nav.Link>
-                            <Link to="/register">Register</Link>
+                            <Link id="register" to="/register">Register</Link>
                         </Nav.Link>
                     </Nav.Item>
                 </Nav>
@@ -71,11 +72,11 @@ export default class NavigationBar extends Component {
     render() {
         return (
             <Navbar expand="lg" className="navbar-dark">
-                <Navbar.Brand href="/">Rate a dog</Navbar.Brand>
+                <Navbar.Brand id="home" as={Link} to="/">Rate a dog</Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav"/>
                 <Navbar.Collapse id="basic-navbar-nav">
-                    {this.renderForGuest()}
                     {this.renderForUser()}
+                    {this.renderForGuest()}
                 </Navbar.Collapse>
             </Navbar>
         );
