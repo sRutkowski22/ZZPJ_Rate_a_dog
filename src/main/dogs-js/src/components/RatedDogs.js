@@ -15,8 +15,7 @@ export default class RatedDogs extends Component{
             columns: [{
                 dataField: "url",
                 text: "url",
-                sort: true,
-                isDummyField: true,
+                accessor: "urlaccess",
                 formatter: this.displayImage
             }, {
                 dataField: "breed",
@@ -39,13 +38,12 @@ export default class RatedDogs extends Component{
         }
     }
 
-    displayImage = () => {
+    displayImage = (cell, row) => {
 
             console.log("herb")
-            return <img src={this.state.reviews[8]["url"]} width={130} height={130}></img>;
+            return <img src={cell} width={130} height={130}></img>;
 
     };
-
 
     componentDidMount = () => {
         axios.get("/reviews")
