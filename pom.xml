@@ -16,7 +16,7 @@
 
 	<properties>
 		<java.version>11</java.version>
-		<react.app.api>http://localhost:8080/apitest</react.app.api>
+		<react.app.api>https://rateadog.herokuapp.com/api</react.app.api>
 	</properties>
 
 	<dependencies>
@@ -141,6 +141,19 @@
 								<REACT_APP_API>${react.app.api}</REACT_APP_API>
 							</environmentVariables>
 						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-failsafe-plugin</artifactId>
+				<executions>
+					<execution>
+						<goals>
+							<goal>integration-test</goal>
+							<goal>verify</goal>
+						</goals>
 					</execution>
 				</executions>
 			</plugin>

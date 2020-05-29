@@ -14,8 +14,7 @@ export default class NavigationBar extends Component {
 
     handleLogout = () => {
         this.cookies.remove("jwt");
-        this.props.history.push("/");
-        window.location.reload();
+        window.location.replace("/");
     }
 
     renderForUser = () => {
