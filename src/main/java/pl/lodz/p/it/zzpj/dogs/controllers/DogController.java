@@ -1,36 +1,35 @@
 package pl.lodz.p.it.zzpj.dogs.controllers;
 
-
-import com.fasterxml.jackson.core.JsonProcessingException;
-import lombok.RequiredArgsConstructor;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.RestTemplate;
-import pl.lodz.p.it.zzpj.dogs.services.AccountService;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RestController;
 import pl.lodz.p.it.zzpj.dogs.services.DogService;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
 @RestController
 @CrossOrigin
-@RequiredArgsConstructor
+@AllArgsConstructor
 public class DogController {
+
     private final DogService dogService;
+
     @GetMapping("/dog/breedlist")
-    public List<String> getBreedList() throws JsonProcessingException {
+    public List<String> getBreedList() {
         return dogService.getBreedList();
     }
 
     @GetMapping("/dog/breed/random/{breed}")
-    public String getRandomDogByBreed(@PathVariable String breed) throws JsonProcessingException {
+    public String getRandomDogByBreed(@PathVariable String breed) {
         return dogService.getRandomDogByBreed(breed);
     }
 
     @GetMapping("/dog/random")
-    public String getRandomDog() throws JsonProcessingException {
+    public String getRandomDog() {
         return dogService.getRandomDog();
     }
 }
