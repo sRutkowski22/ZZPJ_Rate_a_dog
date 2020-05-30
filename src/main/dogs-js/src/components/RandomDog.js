@@ -3,6 +3,7 @@ import axios from "axios";
 import {Button} from "react-bootstrap";
 import StarRatingComponent from 'react-star-rating-component';
 import {currentUser, jwtHeader} from "../index";
+import swal from 'sweetalert';
 
 export default class RandomDog extends Component {
 
@@ -43,6 +44,13 @@ export default class RandomDog extends Component {
                 "rating": this.state.rating,
                 "username": currentUser()
             }, jwtHeader())
+                .then(
+                    swal({
+                        title: "Your grade was successfully saved",
+                        icon: "success",
+                        closeOnClickOutside: true
+                    })
+                )
                 .catch(error => {
                     console.log(error.response);
                 })

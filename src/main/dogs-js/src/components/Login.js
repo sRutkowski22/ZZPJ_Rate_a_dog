@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 import Cookies from "universal-cookie";
 import { Button, Form, FormControl, FormGroup, FormLabel } from "react-bootstrap";
+import swal from 'sweetalert';
 
 export default class Login extends Component {
 
@@ -59,10 +60,17 @@ export default class Login extends Component {
                     this.props.history.push("/");
                     window.location.reload();
                 }).catch(error => {
-                alert(error.response.data);
+                swal({
+                    title: error.response.data,
+                    icon: "error"
+                });
             });
         } else {
-            alert("Please fill out every field in the form.");
+            swal({
+                title: "Please fill out every field in the form.",
+                icon: "warning",
+                closeOnClickOutside: true
+            });
         }
     };
 

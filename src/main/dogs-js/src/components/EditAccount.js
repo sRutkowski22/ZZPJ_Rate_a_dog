@@ -3,6 +3,7 @@ import {Button, Form, FormControl, FormGroup, FormLabel} from "react-bootstrap";
 import axios from "axios";
 import Cookies from "universal-cookie";
 import {currentUser, jwtHeader} from "../index";
+import swal from "sweetalert";
 
 export default class EditAccount extends Component {
 
@@ -88,19 +89,30 @@ export default class EditAccount extends Component {
             delete this.state.user["confirmPassword"];
             axios.put("/account/" + currentUser(), this.state.user, jwtHeader())
                 .then(response => {
-                    alert(response.status);
+                    swal({
+                        title: response.status,
+                        icon: "info",
+                        closeOnClickOutside: true
+                    });
                     this.props.history.push("/");
                 }).catch(error => {
-                alert(error.response.data);
+                swal({
+                    title: error.response.data,
+                    icon: "error"
+                });
             });
         } else {
-            alert("Please fill out every field in the form.");
+            swal({
+                title: "Please fill out every field in the form.",
+                icon: "warning",
+                closeOnClickOutside: true
+            });
         }
     };
 
     handleSwitchChangePassword = () => {
         this.setState({changePassword: !this.state.changePassword});
-    }
+    };
 
     renderChangePasswordForm = () => {
         if (this.state.changePassword) {
