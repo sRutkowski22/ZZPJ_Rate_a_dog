@@ -69,14 +69,26 @@ export default class Register extends Component {
             axios.post("/register", this.state.user)
                 .then(response => {
                     if (response.status === 200) {
-                        alert("Registered successfully.");
+                        swal({
+                            title: "Registered successfully.",
+                            icon: "success",
+                            closeOnClickOutside: true
+                        });
                         this.props.history.push("/");
                     }
                 }).catch(error => {
-                alert("An error occurred. Please try again.");
+                swal({
+                    title: "An error occurred.",
+                    text: "Please try again.",
+                    icon: "error",
+                });
             });
         } else {
-            alert("Please fill out every field in the form.");
+            swal({
+                title: "Please fill out every field in the form.",
+                icon: "warning",
+                closeOnClickOutside: true
+            });
         }
     };
 

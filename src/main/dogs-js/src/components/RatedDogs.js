@@ -12,7 +12,7 @@ export default class RatedDogs extends Component{
             reviews: [],
             columns: [{
                 dataField: "url",
-                text: "url",
+                text: "Picture",
                 accessor: "urlaccess",
                 formatter: this.displayImage
             }, {
