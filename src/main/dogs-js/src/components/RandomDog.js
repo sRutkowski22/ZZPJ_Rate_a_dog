@@ -57,6 +57,18 @@ export default class RandomDog extends Component {
         }
     };
 
+    addToFavorites = () => {
+        axios.post("/favorite/" + this.state.dogUrl + "/" + currentUser(), jwtHeader())
+            .then(swal({
+                title: "Picture was added to favorites",
+                icon: "success",
+                closeOnClickOutside: true
+            }))
+            .catch(error => {
+                console.log(error.response);
+            })
+    };
+
     render() {
         const { rating } = this.state;
         return (
@@ -74,6 +86,9 @@ export default class RandomDog extends Component {
                         <Button variant="dark" name="rate-button" onClick={() => this.rateDog()} >Rate</Button>
                         <div class="divider" />
                         <Button variant="dark" name="confirm-button" onClick={() => this.getRandomDog()}>Next dog</Button>
+                    </div>
+                    <div>
+                        <Button variant="dark" onClick={() => this.addToFavorites()}>Add to favorites</Button>
                     </div>
                 </div>
             </div>

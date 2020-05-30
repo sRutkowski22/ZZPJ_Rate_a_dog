@@ -35,6 +35,7 @@ a, .navbar-brand, .navbar-nav .nav-link {
 .buttons {
     margin-top: 20px;
     text-align: center;
+    margin-bottom: 5px;
 }
 
 .divider {

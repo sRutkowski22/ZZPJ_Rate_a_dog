@@ -5,9 +5,7 @@ import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 @Document("accounts")
 @Builder
@@ -20,6 +18,10 @@ public @Data class Account {
     private String password;
     private String firstName;
     private String lastName;
+
+    @Builder.Default
+    private List<String> favoriteDogs = new ArrayList<>();
+
     @Builder.Default
     private Map<String, Double> breedPreferences = new HashMap<>() {{
         put("affenpinscher", 1.0);
