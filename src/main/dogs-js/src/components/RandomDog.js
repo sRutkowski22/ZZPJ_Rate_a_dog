@@ -46,7 +46,7 @@ export default class RandomDog extends Component {
             }, jwtHeader())
                 .then(
                     swal({
-                        title: "Your grade was successfully saved",
+                        title: "Your rating was successfully saved",
                         icon: "success",
                         closeOnClickOutside: true
                     })

@@ -89,15 +89,24 @@ export default class EditAccount extends Component {
             delete this.state.user["confirmPassword"];
             axios.put("/account/" + currentUser(), this.state.user, jwtHeader())
                 .then(response => {
-                    swal({
-                        title: response.status,
-                        icon: "info",
-                        closeOnClickOutside: true
-                    });
-                    this.props.history.push("/");
+                    if (response.status === 200) {
+                        swal({
+                            title: "Account was successfully edited",
+                            icon: "success",
+                            closeOnClickOutside: true
+                        });
+                        this.props.history.push("/");
+                    } else {
+                        swal({
+                            title: "Something went wrong",
+                            icon: "error",
+                            closeOnClickOutside: true
+                        })
+                    }
                 }).catch(error => {
                 swal({
-                    title: error.response.data,
+                    title: "An error occurred",
+                    text: "Please try again",
                     icon: "error"
                 });
             });
