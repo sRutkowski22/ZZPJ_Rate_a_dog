@@ -36,12 +36,6 @@ public class SeleniumTestsIT {
 
     @BeforeEach
     public void setUp() {
-        WebDriverManager.getInstance(FirefoxDriver.class).setup();
-        FirefoxOptions options = new FirefoxOptions();
-        options.setHeadless(true);
-        driver = new FirefoxDriver(options);
-        wait = new WebDriverWait(driver, 30);
-
         InputStream inputStream = this.getClass().getResourceAsStream("/test.properties");
         Properties properties = new Properties();
         try {
@@ -50,6 +44,14 @@ public class SeleniumTestsIT {
             log.error(e.getMessage());
         }
         url = properties.getProperty("react.app.api").replace("/api", "");
+
+        if (url.contains("localhost")) {
+            WebDriverManager.getInstance(FirefoxDriver.class).setup();
+        }
+        FirefoxOptions options = new FirefoxOptions();
+        options.setHeadless(true);
+        driver = new FirefoxDriver(options);
+        wait = new WebDriverWait(driver, 30);
     }
 
     @AfterEach
