@@ -114,7 +114,7 @@
                 <executions>
                     <execution>
                         <phase>pre-integration-test</phase>
-                        <id>install node and npm</id>
+                        <id>install node and npm 1</id>
                         <goals>
                             <goal>install-node-and-npm</goal>
                         </goals>
@@ -124,7 +124,7 @@
                     </execution>
                     <execution>
                         <phase>pre-integration-test</phase>
-                        <id>npm install</id>
+                        <id>npm install 1</id>
                         <goals>
                             <goal>npm</goal>
                         </goals>
@@ -134,7 +134,7 @@
                     </execution>
                     <execution>
                         <phase>pre-integration-test</phase>
-                        <id>npm run build</id>
+                        <id>npm run build 1</id>
                         <goals>
                             <goal>npm</goal>
                         </goals>
@@ -147,7 +147,7 @@
                     </execution>
                     <execution>
                         <phase>install</phase>
-                        <id>install node and npm</id>
+                        <id>install node and npm 2</id>
                         <goals>
                             <goal>install-node-and-npm</goal>
                         </goals>
@@ -157,7 +157,7 @@
                     </execution>
                     <execution>
                         <phase>install</phase>
-                        <id>npm install</id>
+                        <id>npm install 2</id>
                         <goals>
                             <goal>npm</goal>
                         </goals>
@@ -167,7 +167,7 @@
                     </execution>
                     <execution>
                         <phase>install</phase>
-                        <id>npm run build</id>
+                        <id>npm run build 2</id>
                         <goals>
                             <goal>npm</goal>
                         </goals>
