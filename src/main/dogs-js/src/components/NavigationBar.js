@@ -44,11 +44,11 @@ export default class NavigationBar extends Component {
                             <Link to="/ratedDogs">Rated dogs</Link>
                         </Nav.Link>
                     </Nav.Item>
-                    {/*<Nav.Item>*/}
-                    {/*    <Nav.Link>*/}
-                    {/*        <Link to="/randomBreedDog">Random dog by breed</Link>*/}
-                    {/*    </Nav.Link>*/}
-                    {/*</Nav.Item>*/}
+                    <Nav.Item>
+                        <Nav.Link>
+                            <Link to="/randomBreedDog">Random dog by breed</Link>
+                        </Nav.Link>
+                    </Nav.Item>
                 </Nav>
             );
         }

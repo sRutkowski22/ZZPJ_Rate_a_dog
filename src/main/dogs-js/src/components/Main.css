@@ -12,7 +12,7 @@ a, .navbar-brand, .navbar-nav .nav-link {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 80vh;
+    height: 60vh;
     width: 60vw;
 }
 
