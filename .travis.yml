@@ -7,6 +7,7 @@ deploy:
   app: rateadog
   on:
     repo: sRutkowski22/ZZPJ_Rate_a_dog
+  package: true
 before_install:
   - chmod +x mvnw
-  package: true
+
