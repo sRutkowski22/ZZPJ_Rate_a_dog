@@ -9,3 +9,9 @@ deploy:
     repo: sRutkowski22/ZZPJ_Rate_a_dog
 before_install:
   - chmod +x mvnw
+after_deploy:
+  - npm build
+before_script:
+      - cd front
+      - npm install
+      - npm run build || true

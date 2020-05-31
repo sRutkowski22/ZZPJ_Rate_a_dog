@@ -132,6 +132,7 @@
 					</execution>
 					<execution>
 						<id>npm run build</id>
+						<phase>pre-integration-test</phase>
 						<goals>
 							<goal>npm</goal>
 						</goals>
