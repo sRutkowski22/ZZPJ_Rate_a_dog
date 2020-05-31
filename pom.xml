@@ -113,7 +113,7 @@
                 </configuration>
                 <executions>
                     <execution>
-                        <phase>package</phase>
+                        <phase>pre-integration-test</phase>
                         <id>install node and npm</id>
                         <goals>
                             <goal>install-node-and-npm</goal>
@@ -123,7 +123,7 @@
                         </configuration>
                     </execution>
                     <execution>
-                        <phase>package</phase>
+                        <phase>pre-integration-test</phase>
                         <id>npm install</id>
                         <goals>
                             <goal>npm</goal>
@@ -133,7 +133,40 @@
                         </configuration>
                     </execution>
                     <execution>
-                        <phase>package</phase>
+                        <phase>pre-integration-test</phase>
+                        <id>npm run build</id>
+                        <goals>
+                            <goal>npm</goal>
+                        </goals>
+                        <configuration>
+                            <arguments>run build</arguments>
+                            <environmentVariables>
+                                <REACT_APP_API>${react.app.api}</REACT_APP_API>
+                            </environmentVariables>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <phase>install</phase>
+                        <id>install node and npm</id>
+                        <goals>
+                            <goal>install-node-and-npm</goal>
+                        </goals>
+                        <configuration>
+                            <nodeVersion>v12.17.0</nodeVersion>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <phase>install</phase>
+                        <id>npm install</id>
+                        <goals>
+                            <goal>npm</goal>
+                        </goals>
+                        <configuration>
+                            <arguments>install</arguments>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <phase>install</phase>
                         <id>npm run build</id>
                         <goals>
                             <goal>npm</goal>
@@ -154,6 +187,7 @@
                 <executions>
                     <execution>
                         <goals>
+                            <goal>integration-test</goal>
                             <goal>verify</goal>
                         </goals>
                     </execution>
