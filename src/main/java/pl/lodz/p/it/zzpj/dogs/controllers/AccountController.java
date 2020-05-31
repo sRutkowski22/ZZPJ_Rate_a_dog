@@ -4,8 +4,8 @@ import lombok.AllArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import pl.lodz.p.it.zzpj.dogs.dto.AccountDto;
+import pl.lodz.p.it.zzpj.dogs.dto.DogDto;
 import pl.lodz.p.it.zzpj.dogs.dto.mappers.AccountMapper;
-import pl.lodz.p.it.zzpj.dogs.exceptions.AccountException;
 import pl.lodz.p.it.zzpj.dogs.exceptions.AppBaseException;
 import pl.lodz.p.it.zzpj.dogs.model.Account;
 import pl.lodz.p.it.zzpj.dogs.services.AccountService;
@@ -42,8 +42,10 @@ public class AccountController {
         return accountService.getAll();
     }
 
-    @PutMapping("/favorite/{url}/{username}")
-    public void addDogToFavorites(@PathVariable String url, @PathVariable String username) throws AccountException {
-        accountService.addDogToFavorites(url, username);
+    @PutMapping("/favorite/{username}")
+    @PreAuthorize("#username == authentication.principal.username")
+    public void addDogToFavorites(@PathVariable String username, @RequestBody DogDto dogDto) throws AppBaseException {
+        String herb = dogDto.getUrl();
+        accountService.addDogToFavorites(herb, username);
     }
 }
