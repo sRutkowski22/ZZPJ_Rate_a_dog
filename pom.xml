@@ -113,8 +113,7 @@
                 </configuration>
                 <executions>
                     <execution>
-                        <phase>pre-integration-test</phase>
-                        <id>install node and npm 1</id>
+                        <id>install node and npm</id>
                         <goals>
                             <goal>install-node-and-npm</goal>
                         </goals>
@@ -123,8 +122,7 @@
                         </configuration>
                     </execution>
                     <execution>
-                        <phase>pre-integration-test</phase>
-                        <id>npm install 1</id>
+                        <id>npm install</id>
                         <goals>
                             <goal>npm</goal>
                         </goals>
@@ -133,41 +131,7 @@
                         </configuration>
                     </execution>
                     <execution>
-                        <phase>pre-integration-test</phase>
-                        <id>npm run build 1</id>
-                        <goals>
-                            <goal>npm</goal>
-                        </goals>
-                        <configuration>
-                            <arguments>run build</arguments>
-                            <environmentVariables>
-                                <REACT_APP_API>${react.app.api}</REACT_APP_API>
-                            </environmentVariables>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <phase>install</phase>
-                        <id>install node and npm 2</id>
-                        <goals>
-                            <goal>install-node-and-npm</goal>
-                        </goals>
-                        <configuration>
-                            <nodeVersion>v12.17.0</nodeVersion>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <phase>install</phase>
-                        <id>npm install 2</id>
-                        <goals>
-                            <goal>npm</goal>
-                        </goals>
-                        <configuration>
-                            <arguments>install</arguments>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <phase>install</phase>
-                        <id>npm run build 2</id>
+                        <id>npm run build</id>
                         <goals>
                             <goal>npm</goal>
                         </goals>
