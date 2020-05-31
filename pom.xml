@@ -136,7 +136,7 @@
                             <goal>npm</goal>
                         </goals>
                         <configuration>
-                            <arguments>run build</arguments>
+                            <arguments>run build || true</arguments>
                             <environmentVariables>
                                 <REACT_APP_API>${react.app.api}</REACT_APP_API>
                             </environmentVariables>
