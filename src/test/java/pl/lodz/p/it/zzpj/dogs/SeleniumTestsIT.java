@@ -6,10 +6,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.openqa.selenium.Alert;
-import org.openqa.selenium.By;
-import org.openqa.selenium.Dimension;
-import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -71,10 +68,9 @@ public class SeleniumTestsIT {
         driver.findElement(By.id("firstName")).sendKeys("integration");
         driver.findElement(By.id("lastName")).sendKeys("test");
         driver.findElement(By.id("submit")).click();
-        wait.until(ExpectedConditions.alertIsPresent());
-        Alert alert = driver.switchTo().alert();
-        assertEquals("Registered successfully.", alert.getText());
-        alert.accept();
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".swal-title")));
+        assertEquals("Registered successfully.", driver.findElement(By.cssSelector(".swal-title")).getText());
+        driver.findElement(By.cssSelector(".swal-button")).click();
 
         //login
         driver.findElement(By.id("login")).click();
