@@ -10,4 +10,6 @@ deploy:
   package: true
 before_install:
   - chmod +x mvnw
-
+  jobs:
+    exclude:
+      -npm run build
