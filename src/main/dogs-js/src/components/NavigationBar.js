@@ -29,7 +29,13 @@ export default class NavigationBar extends Component {
 
                     <Nav.Item>
                         <Nav.Link>
-                            <Link id="logout" to="/" onClick={this.handleLogout}>Logout</Link>
+                            <Link id="favoriteDogs" to="/favoriteDogs">My favorite dogs</Link>
+                        </Nav.Link>
+                    </Nav.Item>
+
+                    <Nav.Item>
+                        <Nav.Link>
+                            <Link to="/ratedDogs">Rated dogs</Link>
                         </Nav.Link>
                     </Nav.Item>
 
@@ -41,12 +47,13 @@ export default class NavigationBar extends Component {
 
                     <Nav.Item>
                         <Nav.Link>
-                            <Link to="/ratedDogs">Rated dogs</Link>
+                            <Link to="/randomBreedDog">Random dog by breed</Link>
                         </Nav.Link>
                     </Nav.Item>
+
                     <Nav.Item>
                         <Nav.Link>
-                            <Link to="/randomBreedDog">Random dog by breed</Link>
+                            <Link id="logout" to="/" onClick={this.handleLogout}>Logout</Link>
                         </Nav.Link>
                     </Nav.Item>
                 </Nav>
