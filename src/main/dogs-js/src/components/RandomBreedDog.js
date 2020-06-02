@@ -92,6 +92,22 @@ export default class RandomDog extends Component {
         }
     };
 
+    addToFavorites = () => {
+        axios.put("/favorite/" + currentUser(), {
+            "url": this.state.dogUrl
+        }, jwtHeader())
+            .then(
+                swal({
+                    title: "Picture was added to favorites",
+                    icon: "success",
+                    closeOnClickOutside: true
+                })
+            )
+            .catch(error => {
+                console.log(error.response);
+            })
+    };
+
     render() {
         const {breed} = this.state;
         const {rating} = this.state;
