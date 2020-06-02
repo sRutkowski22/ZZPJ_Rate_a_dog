@@ -21,20 +21,20 @@ export default class RandomDog extends Component {
 
     componentDidMount = () => {
         this.getBreedList();
-    }
+    };
 
     fillOptions = () => {
-        let breedListOptionsLocal = []
-        this.state.breedList.sort()
+        let breedListOptionsLocal = [];
+        this.state.breedList.sort();
         this.state.breedList.forEach(function (item,index) {
             breedListOptionsLocal.push({value:item, label:item})
-        })
+        });
         this.setState({
             breedListOptions: breedListOptionsLocal,
             breed: breedListOptionsLocal[0]
         }
         )
-    }
+    };
 
     changeRating(newRating) {
         this.setState({
@@ -59,7 +59,7 @@ export default class RandomDog extends Component {
             }).catch(error => {
             console.log(error.response);
         });
-    }
+    };
 
     getRandomDog = (breed) => {
         axios.get("/dog/breed/random/" + breed)
@@ -70,7 +70,7 @@ export default class RandomDog extends Component {
             }).catch(error => {
             console.log(error.response);
         });
-    }
+    };
 
     rateDog = () => {
         if(this.state.rating > 0) {
@@ -93,26 +93,29 @@ export default class RandomDog extends Component {
     };
 
     render() {
-        const {breed} = this.state
-        const {rating} = this.state
+        const {breed} = this.state;
+        const {rating} = this.state;
         return (
             <div>
                 <h4>Choose the breed</h4>
                 <Select options={this.state.breedListOptions} value = {breed} onChange={this.handleDogChange}/>
                 <div className="image-div">
-                    <img className="image-dog" src={this.state.dogUrl} />
-                </div>
-                <div className="ratings">
-                    <StarRatingComponent
-                        class="rating"
-                        starCount={5}
-                        value={rating}
-                        onStarClick={this.changeRating.bind(this)}/>
-                </div>
-                <div className="buttons">
-                    <Button variant="dark" name="rate-button" onClick={() => this.rateDog() } disabled={this.state.dogUrl === ""}>Rate</Button>
-                    <div className="divider"/>
-                    <Button variant="dark" name="confirm-button" onClick={() => this.getRandomDog(this.state.breed.value)}>Next dog</Button>
+                    <img className="image-dog" src={this.state.dogUrl} alt="" />
+                    <div className="ratings">
+                        <StarRatingComponent
+                            class="rating"
+                            starCount={5}
+                            value={rating}
+                            onStarClick={this.changeRating.bind(this)}/>
+                    </div>
+                    <div className="buttons">
+                        <Button variant="dark" name="rate-button" onClick={() => this.rateDog() } disabled={this.state.dogUrl === ""}>Rate</Button>
+                        <div className="divider" />
+                        <Button variant="dark" name="confirm-button" onClick={() => this.getRandomDog(this.state.breed.value)}>Next dog</Button>
+                    </div>
+                    <div>
+                        <Button variant="dark" onClick={() => this.addToFavorites()} disabled={this.state.dogUrl === ""}>Add to favorites</Button>
+                    </div>
                 </div>
             </div>
         )

@@ -96,7 +96,7 @@ export default class RandomDog extends Component {
         return (
             <div>
                 <div className="image-div">
-                    <img className="image-dog" src={this.state.dogUrl} />
+                    <img alt="img" className="image-dog" src={this.state.dogUrl} />
                     <div class="ratings">
                         <StarRatingComponent
                             class="rating"
