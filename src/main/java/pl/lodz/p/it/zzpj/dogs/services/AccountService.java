@@ -65,4 +65,12 @@ public class AccountService {
             throw new AccountException("Account not found.");
         }
     }
+
+    public List<String> getFavoriteDogs(String username) throws AccountException {
+        if (accountRepository.findByUsername(username).isPresent()) {
+            return accountRepository.findByUsername(username).get().getFavoriteDogs();
+        } else {
+            throw new AccountException("Account not found");
+        }
+    }
 }

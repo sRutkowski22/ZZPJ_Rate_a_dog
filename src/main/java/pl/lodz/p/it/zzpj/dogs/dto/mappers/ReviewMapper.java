@@ -4,8 +4,13 @@ import pl.lodz.p.it.zzpj.dogs.dto.ReviewDto;
 import pl.lodz.p.it.zzpj.dogs.model.Review;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class ReviewMapper {
+
+    private static String formatDate(LocalDateTime date) {
+        return date.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+    }
 
     public static ReviewDto mapToDto(Review review) {
         return ReviewDto.builder()
@@ -13,7 +18,7 @@ public class ReviewMapper {
                 .breed(review.getBreed())
                 .rating(review.getRating())
                 .username(review.getUsername())
-                .creationDate(review.getCreationDate())
+                .creationDate(formatDate(review.getCreationDate()))
                 .build();
     }
 
