@@ -130,7 +130,7 @@ export default class Register extends Component {
                     <hr/>
                     <Button id="submit" variant="dark" onClick={this.handleSubmit}>Submit</Button>
                 </Form>
-                <Button id="back" variant="dark" onClick={this.props.history.goBack}>Back</Button>
+                <Button style={{"margin-top": "5px"}} id="back" variant="dark" onClick={this.props.history.goBack}>Back</Button>
             </div>
         );
     }
