@@ -3,8 +3,6 @@ package pl.lodz.p.it.zzpj.dogs.dto;
 import lombok.Builder;
 import lombok.Data;
 
-import java.time.LocalDateTime;
-
 @Data
 @Builder
 public class ReviewDto {
@@ -12,5 +10,5 @@ public class ReviewDto {
     private String breed;
     private int rating;
     private String username;
-    private LocalDateTime creationDate;
+    private String creationDate;
 }
