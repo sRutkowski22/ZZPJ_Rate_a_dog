@@ -37,6 +37,15 @@ export default class RandomDog extends Component {
         });
     }
 
+    loginExpected() {
+        this.props.history.push("/login");
+        swal({
+            title: "You must be logged in",
+            icon: "info",
+            closeOnClickOutside: true
+        })
+    }
+
     rateDog = () => {
         if(!(currentUser() === "")) {
             if (this.state.rating > 0) {
@@ -57,12 +66,7 @@ export default class RandomDog extends Component {
                     })
             }
         } else {
-            this.props.history.push("/login");
-            swal({
-                title: "You must be logged in",
-                icon: "info",
-                closeOnClickOutside: true
-            })
+            this.loginExpected();
         }
     };
 
@@ -82,12 +86,7 @@ export default class RandomDog extends Component {
                 console.log(error.response);
             })
         } else {
-            this.props.history.push("/login");
-            swal({
-                title: "You must be logged in",
-                icon: "info",
-                closeOnClickOutside: true
-            })
+            this.loginExpected();
         }
     };
 
@@ -96,7 +95,7 @@ export default class RandomDog extends Component {
         return (
             <div>
                 <div className="image-div">
-                    <img className="image-dog" src={this.state.dogUrl} />
+                    <img alt="img" className="image-dog" src={this.state.dogUrl} />
                     <div class="ratings">
                         <StarRatingComponent
                             class="rating"

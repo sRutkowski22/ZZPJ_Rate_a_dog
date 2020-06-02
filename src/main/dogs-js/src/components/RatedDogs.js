@@ -36,30 +36,23 @@ export default class RatedDogs extends Component{
         }
     }
 
-    displayImage = (cell, row) => {
-
-            console.log("herb")
-            return <img src={cell} width={130} height={130}></img>;
-
+    displayImage = (cell) => {
+            return <img alt="img" src={cell} width={130} height={130} />;
     };
 
     componentDidMount = () => {
         axios.get("/reviews")
             .then(response =>{
                 let tempReviews = response.data;
-                for(let review of tempReviews) {
-                    let link = review["url"];
-
-                }
 
                 this.setState({
                     reviews: tempReviews
-                })
+                });
                 for(let review of tempReviews){
                     console.log(review)
                 }
             })
-    }
+    };
 
     renderTable = () => {
         const sizes = [{
@@ -79,7 +72,7 @@ export default class RatedDogs extends Component{
                                 bootstrap4={true}/>
             </div>
         )
-    }
+    };
 
     render() {
         return(
