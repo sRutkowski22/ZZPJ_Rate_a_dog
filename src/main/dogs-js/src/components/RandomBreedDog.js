@@ -14,7 +14,8 @@ export default class RandomDog extends Component {
             breedListOptions: [],
             breed: {},
             dogUrl: "",
-            rating: 0
+            rating: 0,
+            averageRating: 0
         };
 
     }
@@ -65,11 +66,26 @@ export default class RandomDog extends Component {
         axios.get("/dog/breed/random/" + breed)
             .then(response => {
                 this.setState({
-                        dogUrl: response.data
+                    dogUrl: response.data,
+                    averageRating: 0
                 });
-            }).catch(error => {
+            }).then(() => {
+            this.getAverageRating();
+        }).catch(error => {
             console.log(error.response);
         });
+    };
+
+    getAverageRating = () => {
+        axios.post("/reviews/average", {
+            "url": this.state.dogUrl
+        }).then(response => {
+            this.setState({
+                averageRating: response.data
+            })
+        }).catch(error => {
+            console.log(error.response);
+        })
     };
 
     rateDog = () => {
@@ -116,7 +132,13 @@ export default class RandomDog extends Component {
                 <h4>Choose the breed</h4>
                 <Select options={this.state.breedListOptions} value = {breed} onChange={this.handleDogChange}/>
                 <div className="image-div">
+                    <label style={{"padding-top": "20px"}} className="labels">Average rating</label>
+                    <StarRatingComponent
+                        starCount={5}
+                        value={this.state.averageRating}
+                        editing={false} />
                     <img className="image-dog" src={this.state.dogUrl} alt="" />
+                    <label className="labels">Your rating</label>
                     <div className="ratings">
                         <StarRatingComponent
                             class="rating"

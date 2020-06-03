@@ -2,6 +2,7 @@ package pl.lodz.p.it.zzpj.dogs.controllers;
 
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+import pl.lodz.p.it.zzpj.dogs.dto.DogDto;
 import pl.lodz.p.it.zzpj.dogs.dto.ReviewDto;
 import pl.lodz.p.it.zzpj.dogs.dto.mappers.ReviewMapper;
 import pl.lodz.p.it.zzpj.dogs.exceptions.ReviewException;
@@ -51,5 +52,14 @@ public class ReviewController {
     @GetMapping("/reviews/date/{firstDate}/{secondDate}")
     public List<ReviewDto> getAllReviewsBetweenDate(@PathVariable LocalDateTime firstDate, @PathVariable LocalDateTime secondDate) {
         return reviewService.getAllReviewsBetweenDate(firstDate, secondDate).stream().map(ReviewMapper::mapToDto).collect(Collectors.toList());
+    }
+
+    @PostMapping("/reviews/average")
+    public int getAverageRating(@RequestBody DogDto dogDto) {
+        List<ReviewDto> reviews = reviewService.getAllReviewsForUrl(dogDto.getUrl()).stream().map(ReviewMapper::mapToDto).collect(Collectors.toList());
+        int rating = 0;
+        for(ReviewDto reviewDto : reviews)
+            rating += reviewDto.getRating();
+        return rating/reviews.size();
     }
 }
