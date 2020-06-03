@@ -45,8 +45,7 @@ public class AccountController {
     @PutMapping("/favorite/{username}")
     @PreAuthorize("#username == authentication.principal.username")
     public void addDogToFavorites(@PathVariable String username, @RequestBody DogDto dogDto) throws AppBaseException {
-        String url = dogDto.getUrl();
-        accountService.addDogToFavorites(url, username);
+        accountService.addDogToFavorites(dogDto.getUrl(), username);
     }
 
     @GetMapping("/favorites/{username}")

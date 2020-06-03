@@ -11,7 +11,8 @@ export default class RandomDog extends Component {
         super(props);
         this.state = {
             dogUrl: "",
-            rating: 0
+            rating: 0,
+            averageRating: 0
         };
     }
 
@@ -24,11 +25,27 @@ export default class RandomDog extends Component {
             .then(response => {
                 this.setState({
                     dogUrl: response.data,
-                    rating: 0
+                    rating: 0,
+                    averageRating: 0
                 });
+            })
+            .then(() => {
+                this.getAverageRating();
             }).catch(error => {
             console.log(error.response);
         });
+    };
+
+    getAverageRating = () => {
+        axios.post("/reviews/average", {
+            "url": this.state.dogUrl
+        }).then(response => {
+            this.setState({
+                averageRating: response.data
+            })
+        }).catch(error => {
+            console.log(error.response);
+        })
     };
 
     changeRating(newRating) {
@@ -95,10 +112,15 @@ export default class RandomDog extends Component {
         return (
             <div>
                 <div className="image-div">
+                    <label style={{"padding-top": "20px"}} class="labels">Average rating</label>
+                    <StarRatingComponent
+                        starCount={5}
+                        value={this.state.averageRating}
+                        editing={false} />
                     <img alt="img" className="image-dog" src={this.state.dogUrl} />
+                    <label class="labels">Your rating</label>
                     <div class="ratings">
                         <StarRatingComponent
-                            class="rating"
                             starCount={5}
                             value={rating}
                             onStarClick={this.changeRating.bind(this)} />
