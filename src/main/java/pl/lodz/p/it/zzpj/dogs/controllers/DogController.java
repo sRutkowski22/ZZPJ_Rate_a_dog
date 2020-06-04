@@ -28,8 +28,8 @@ public class DogController {
         return dogService.getRandomDogByBreed(breed);
     }
 
-    @GetMapping("/dog/random")
-    public String getRandomDog() {
-        return dogService.getRandomDog();
+    @GetMapping("/dog/random/{user}")
+    public String getRandomDog(@PathVariable String user) {
+        return dogService.getRandomDog(user);
     }
 }

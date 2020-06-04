@@ -9,6 +9,7 @@ import pl.lodz.p.it.zzpj.dogs.model.Account;
 import pl.lodz.p.it.zzpj.dogs.repositories.AccountRepository;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 @AllArgsConstructor
@@ -69,6 +70,14 @@ public class AccountService {
     public List<String> getFavoriteDogs(String username) throws AccountException {
         if (accountRepository.findByUsername(username).isPresent()) {
             return accountRepository.findByUsername(username).get().getFavoriteDogs();
+        } else {
+            throw new AccountException("Account not found");
+        }
+    }
+
+    public Map<String,Double> getBreedPreferences(String username) throws AppBaseException {
+        if (accountRepository.findByUsername(username).isPresent()) {
+            return accountRepository.findByUsername(username).get().getBreedPreferences();
         } else {
             throw new AccountException("Account not found");
         }

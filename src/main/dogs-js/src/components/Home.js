@@ -12,7 +12,8 @@ export default class RandomDog extends Component {
         this.state = {
             dogUrl: "",
             rating: 0,
-            averageRating: 0
+            averageRating: 0,
+            loggedUser: currentUser()
         };
     }
 
@@ -21,7 +22,8 @@ export default class RandomDog extends Component {
     };
 
     getRandomDog = () => {
-        axios.get("/dog/random")
+        let url = "/dog/random/" + currentUser()
+        axios.get(url)
             .then(response => {
                 this.setState({
                     dogUrl: response.data,

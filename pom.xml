@@ -17,6 +17,7 @@
     <properties>
         <java.version>11</java.version>
         <react.app.api>https://rateadog.herokuapp.com/api</react.app.api>
+<!--        <react.app.api>http://localhost:8080/api</react.app.api>-->
     </properties>
 
     <dependencies>
