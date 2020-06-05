@@ -23,31 +23,37 @@ export default class NavigationBar extends Component {
                 <Nav className="ml-auto">
                     <Nav.Item>
                         <Nav.Link>
-                            <Link id="account" to="/account">My profile</Link>
+                            <Link class="links" id="account" to="/account">My profile</Link>
                         </Nav.Link>
                     </Nav.Item>
 
                     <Nav.Item>
                         <Nav.Link>
-                            <Link id="favoriteDogs" to="/favoriteDogs">My favorite dogs</Link>
+                            <Link class="links" id="favoriteDogs" to="/favoriteDogs">My favorite dogs</Link>
                         </Nav.Link>
                     </Nav.Item>
 
                     <Nav.Item>
                         <Nav.Link>
-                            <Link to="/ratedDogs">Rated dogs</Link>
+                            <Link class="links" to="/ratedDogs">Rated dogs</Link>
                         </Nav.Link>
                     </Nav.Item>
 
                     <Nav.Item>
                         <Nav.Link>
-                            <Link to="/randomBreedDog">Random dog by breed</Link>
+                            <Link class="links" to="/randomBreedDog">Random dog by breed</Link>
                         </Nav.Link>
                     </Nav.Item>
 
                     <Nav.Item>
                         <Nav.Link>
-                            <Link id="logout" to="/" onClick={this.handleLogout}>Logout</Link>
+                            <Link class="links" to="/aboutUs">About us</Link>
+                        </Nav.Link>
+                    </Nav.Item>
+
+                    <Nav.Item>
+                        <Nav.Link>
+                            <Link class="links" id="logout" to="/" onClick={this.handleLogout}>Logout</Link>
                         </Nav.Link>
                     </Nav.Item>
                 </Nav>
@@ -59,15 +65,22 @@ export default class NavigationBar extends Component {
         if (currentUser() === "") {
             return (
                 <Nav className="ml-auto">
+
                     <Nav.Item>
                         <Nav.Link>
-                            <Link id="login" to="/login">Login</Link>
+                            <Link class="links" to="/aboutUs">About us</Link>
                         </Nav.Link>
                     </Nav.Item>
 
                     <Nav.Item>
                         <Nav.Link>
-                            <Link id="register" to="/register">Register</Link>
+                            <Link class="links" id="login" to="/login">Login</Link>
+                        </Nav.Link>
+                    </Nav.Item>
+
+                    <Nav.Item>
+                        <Nav.Link>
+                            <Link class="links" id="register" to="/register">Register</Link>
                         </Nav.Link>
                     </Nav.Item>
                 </Nav>
@@ -85,6 +98,7 @@ export default class NavigationBar extends Component {
                     {this.renderForGuest()}
                 </Navbar.Collapse>
             </Navbar>
+
         );
     }
 }
