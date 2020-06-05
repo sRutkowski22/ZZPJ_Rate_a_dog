@@ -32,4 +32,9 @@ public class DogController {
     public String getRandomDog(@PathVariable String user) {
         return dogService.getRandomDog(user);
     }
+
+    @GetMapping("/dog/random")
+    public String getRandomDogForGuest() {
+        return dogService.getRandomDog();
+    }
 }

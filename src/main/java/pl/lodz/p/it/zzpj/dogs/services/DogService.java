@@ -23,7 +23,6 @@ import java.util.*;
 @AllArgsConstructor
 public class DogService {
 
-
     private AccountService accountService;
     private final RestTemplate restTemplate = new RestTemplate();
     private final String randomByBreedBegin = "https://dog.ceo/api/breed/";
@@ -31,7 +30,6 @@ public class DogService {
     private final String randomDogURL = "https://dog.ceo/api/breeds/image/random";
     private final String breedListURL = "https://dog.ceo/api/breeds/list/all";
     private final String resourceUrl = "https://dog.ceo/api/breeds/image/random";
-
 
     public List<String> getBreedList() {
         ResponseEntity<String> response = restTemplate.getForEntity(breedListURL, String.class);
@@ -52,6 +50,13 @@ public class DogService {
         catch (HttpClientErrorException error){
             log.error("Breed not found: " + breed);
         }
+        return dogUrl;
+    }
+
+    public String getRandomDog() {
+        ResponseEntity<String> response = restTemplate.getForEntity(randomDogURL, String.class);
+        JSONObject jsonObject = parseResponseEntity(response);
+        String dogUrl = (String) jsonObject.get("message");
         return dogUrl;
     }
 

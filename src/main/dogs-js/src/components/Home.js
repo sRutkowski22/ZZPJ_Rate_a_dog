@@ -22,20 +22,37 @@ export default class RandomDog extends Component {
     };
 
     getRandomDog = () => {
-        let url = "/dog/random/" + currentUser()
-        axios.get(url)
-            .then(response => {
-                this.setState({
-                    dogUrl: response.data,
-                    rating: 0,
-                    averageRating: 0
-                });
-            })
-            .then(() => {
-                this.getAverageRating();
-            }).catch(error => {
-            console.log(error.response);
-        });
+        if (currentUser() === "") {
+            let url = "/dog/random";
+            axios.get(url)
+                .then(response => {
+                    this.setState({
+                        dogUrl: response.data,
+                        rating: 0,
+                        averageRating: 0
+                    });
+                })
+                .then(() => {
+                    this.getAverageRating();
+                }).catch(error => {
+                console.log(error.response);
+            });
+        } else {
+            let url = "/dog/random/" + currentUser();
+            axios.get(url)
+                .then(response => {
+                    this.setState({
+                        dogUrl: response.data,
+                        rating: 0,
+                        averageRating: 0
+                    });
+                })
+                .then(() => {
+                    this.getAverageRating();
+                }).catch(error => {
+                console.log(error.response);
+            });
+        }
     };
 
     getAverageRating = () => {
