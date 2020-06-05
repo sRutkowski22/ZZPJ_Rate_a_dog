@@ -22,43 +22,28 @@ export default class RandomDog extends Component {
     };
 
     getRandomDog = () => {
-        if (currentUser() === "") {
-            let url = "/dog/random";
-            axios.get(url)
-                .then(response => {
-                    this.setState({
-                        dogUrl: response.data,
-                        rating: 0,
-                        averageRating: 0
-                    });
-                })
-                .then(() => {
-                    this.getAverageRating();
-                }).catch(error => {
-                console.log(error.response);
-            });
-        } else {
-            let url = "/dog/random/" + currentUser();
-            axios.get(url)
-                .then(response => {
-                    this.setState({
-                        dogUrl: response.data,
-                        rating: 0,
-                        averageRating: 0
-                    });
-                })
-                .then(() => {
-                    this.getAverageRating();
-                }).catch(error => {
-                console.log(error.response);
-            });
+        let url = "/dog/random";
+        if (currentUser() !== "") {
+            url += "/" + currentUser();
         }
+        axios.get(url, jwtHeader())
+            .then(response => {
+                this.setState({
+                    dogUrl: response.data,
+                    rating: 0,
+                    averageRating: 0
+                });
+            })
+            .then(() => {
+                this.getAverageRating();
+            }).catch(error => {
+            console.log(error.response);
+        });
     };
 
     getAverageRating = () => {
-        axios.post("/reviews/average", {
-            "url": this.state.dogUrl
-        }).then(response => {
+        axios.post("/reviews/average", {"url": this.state.dogUrl}, jwtHeader())
+            .then(response => {
             this.setState({
                 averageRating: response.data
             })

@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import paginationFactory from "react-bootstrap-table2-paginator";
 import BootstrapTable from "react-bootstrap-table-next";
 import axios from "axios";
+import {jwtHeader} from "../index";
 
 export default class RatedDogs extends Component{
 
@@ -41,7 +42,7 @@ export default class RatedDogs extends Component{
     };
 
     componentDidMount = () => {
-        axios.get("/reviews")
+        axios.get("/reviews", jwtHeader())
             .then(response =>{
                 let tempReviews = response.data;
 
