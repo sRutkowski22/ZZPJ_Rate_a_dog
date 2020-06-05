@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
+import pl.lodz.p.it.zzpj.dogs.exceptions.AppBaseException;
 import pl.lodz.p.it.zzpj.dogs.services.DogService;
 
 import java.util.List;
@@ -29,7 +30,7 @@ public class DogController {
 
     @GetMapping("/dog/random/{user}")
     @PreAuthorize("#user == authentication.principal.username")
-    public String getRandomDog(@PathVariable String user) {
+    public String getRandomDog(@PathVariable String user) throws AppBaseException {
         return dogService.getRandomDog(user);
     }
 

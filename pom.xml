@@ -17,7 +17,6 @@
     <properties>
         <java.version>11</java.version>
         <react.app.api>https://rateadog.herokuapp.com/api</react.app.api>
-<!--        <react.app.api>http://localhost:8080/api</react.app.api>-->
     </properties>
 
     <dependencies>
@@ -119,7 +118,7 @@
                             <goal>install-node-and-npm</goal>
                         </goals>
                         <configuration>
-                            <nodeVersion>v12.17.0</nodeVersion>
+                            <nodeVersion>v12.18.0</nodeVersion>
                         </configuration>
                     </execution>
                     <execution>

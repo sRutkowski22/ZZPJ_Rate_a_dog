@@ -1,20 +1,16 @@
 package pl.lodz.p.it.zzpj.dogs.services;
 
 import lombok.AllArgsConstructor;
-import lombok.extern.java.Log;
 import lombok.extern.slf4j.Slf4j;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 import pl.lodz.p.it.zzpj.dogs.exceptions.AppBaseException;
 import pl.lodz.p.it.zzpj.dogs.model.Preference;
-import pl.lodz.p.it.zzpj.dogs.repositories.AccountRepository;
 
 import java.util.*;
 
@@ -23,7 +19,7 @@ import java.util.*;
 @AllArgsConstructor
 public class DogService {
 
-    private AccountService accountService;
+    private final AccountService accountService;
     private final RestTemplate restTemplate = new RestTemplate();
     private final String randomByBreedBegin = "https://dog.ceo/api/breed/";
     private final String randomByBreedEnd = "/images/random";
@@ -47,7 +43,7 @@ public class DogService {
             JSONObject jsonObject = parseResponseEntity(response);
             dogUrl = (String) jsonObject.get("message");
         }
-        catch (HttpClientErrorException error){
+        catch (HttpClientErrorException error) {
             log.error("Breed not found: " + breed);
         }
         return dogUrl;
@@ -60,39 +56,31 @@ public class DogService {
         return dogUrl;
     }
 
-    public String getRandomDog(String user) {
-//        ResponseEntity<String> response = restTemplate.getForEntity(randomDogURL, String.class);
-        Map<String,Double> breedPreferences = new HashMap<>();
+    public String getRandomDog(String user) throws AppBaseException {
         List <Preference> preferences = new ArrayList<>();
-        try {
-            breedPreferences = accountService.getBreedPreferences(user);
-            for (Map.Entry<String, Double> entry : breedPreferences.entrySet()) {
-                System.out.println(entry.getKey() + "/" + entry.getValue());
-                log.error(entry.getKey() + entry.getValue());
-                preferences.add(new Preference(entry.getKey(),entry.getValue()));
-            }
-        } catch (AppBaseException e) {
-            e.printStackTrace();
+        Map<String, Double> breedPreferences = accountService.getBreedPreferences(user);
+        for (Map.Entry<String, Double> entry : breedPreferences.entrySet()) {
+            preferences.add(new Preference(entry.getKey(), entry.getValue()));
         }
-        double ammount = 0;
-        for(Preference preference: preferences)
-        {
-            ammount += preference.getPreferenceValue();
+
+        double amount = 0;
+        for (Preference preference : preferences) {
+            amount += preference.getPreferenceValue();
         }
         Random r = new Random();
-        double randomValue = ammount * r.nextDouble();
-        log.error(Double.toString(randomValue));
+        double randomValue = amount * r.nextDouble();
         double border = 0;
         String breed = "";
         for(Preference preference: preferences)
         {
-            border+=preference.getPreferenceValue();
-            if(border>randomValue){
+            border += preference.getPreferenceValue();
+            if (border > randomValue) {
                 breed = preference.getBreed();
                 break;
             }
         }
-        ResponseEntity<String> response = restTemplate.getForEntity(randomByBreedBegin+ breed +randomByBreedEnd, String.class);
+
+        ResponseEntity<String> response = restTemplate.getForEntity(randomByBreedBegin + breed + randomByBreedEnd, String.class);
         JSONObject jsonObject = parseResponseEntity(response);
         String dogUrl = (String) jsonObject.get("message");
         return dogUrl;

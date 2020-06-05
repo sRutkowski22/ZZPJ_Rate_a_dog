@@ -35,7 +35,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         String[] publicRoutes = new String[]{"/app", "/app/", "/app/login", "/app/register", "/api/login", "/api/register", "/api/dog/random", "/api/reviews/average"};
         String[] privateRoutes = new String[]{"/app/**", "/api/**"};
 
-        http.csrf().disable()
+        http.cors().and().csrf().disable()
                 .authorizeRequests()
                 .antMatchers(publicRoutes).permitAll()
                 .antMatchers(privateRoutes).hasAuthority("USER")
