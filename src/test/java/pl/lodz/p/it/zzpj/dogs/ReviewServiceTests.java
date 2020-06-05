@@ -1,15 +1,13 @@
 package pl.lodz.p.it.zzpj.dogs;
 
-import org.junit.jupiter.api.MethodOrderer;
-import org.junit.jupiter.api.Order;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestMethodOrder;
+import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Import;
 import pl.lodz.p.it.zzpj.dogs.exceptions.ReviewException;
 import pl.lodz.p.it.zzpj.dogs.model.Review;
+import pl.lodz.p.it.zzpj.dogs.repositories.ReviewRepository;
 import pl.lodz.p.it.zzpj.dogs.services.ReviewService;
 
 import java.time.LocalDateTime;
@@ -20,20 +18,25 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @SpringBootTest
 @Import(TestMongoConfiguration.class)
 @ExtendWith(TestSuiteExtension.class)
-@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class ReviewServiceTests {
 
     @Autowired
     private ReviewService reviewService;
 
+    @Autowired
+    private ReviewRepository reviewRepository;
+
+    @BeforeEach
+    private void cleanDatabase() {
+        reviewRepository.deleteAll();
+    }
+
     @Test
-    @Order(1)
     void getAllReviewsTest() {
         assertEquals(0, reviewService.getAllReviews().size());
     }
 
     @Test
-    @Order(2)
     void addReviewTest() {
         Review review = Review.builder()
                 .url("url")
@@ -50,7 +53,6 @@ public class ReviewServiceTests {
     }
 
     @Test
-    @Order(3)
     void getReviewTest() throws ReviewException {
         Review review = Review.builder()
                 .url("urlreview")
@@ -67,7 +69,6 @@ public class ReviewServiceTests {
     }
 
     @Test
-    @Order(4)
     void getReviewsForUser() {
         Review review1 = Review.builder().url("urluser1").breed("breed").rating(5).username("username1").creationDate(LocalDateTime.now()).build();
         Review review2 = Review.builder().url("urluser2").breed("breed").rating(5).username("username2").creationDate(LocalDateTime.now()).build();
@@ -79,7 +80,6 @@ public class ReviewServiceTests {
     }
 
     @Test
-    @Order(5)
     void getReviewsForBreed() {
         Review review1 = Review.builder().url("url").breed("test").rating(5).username("usernamebreed1").creationDate(LocalDateTime.now()).build();
         Review review2 = Review.builder().url("url2").breed("test").rating(5).username("usernamebreed2").creationDate(LocalDateTime.now()).build();
@@ -89,7 +89,6 @@ public class ReviewServiceTests {
     }
 
     @Test
-    @Order(6)
     void getReviewsForUrl() {
         Review review1 = Review.builder().url("urltest").breed("urltest").rating(5).username("usernameurl").creationDate(LocalDateTime.now()).build();
         reviewService.addReview(review1);
@@ -97,7 +96,6 @@ public class ReviewServiceTests {
     }
 
     @Test
-    @Order(7)
     void getReviewsBetweenDate() {
         assertEquals(0, reviewService.getAllReviewsBetweenDate(LocalDateTime.now(), LocalDateTime.now().plusMinutes(1)).size());
     }
