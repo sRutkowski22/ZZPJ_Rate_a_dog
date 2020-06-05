@@ -22,8 +22,11 @@ export default class RandomDog extends Component {
     };
 
     getRandomDog = () => {
-        let url = "/dog/random/" + currentUser()
-        axios.get(url)
+        let url = "/dog/random";
+        if (currentUser() !== "") {
+            url += "/" + currentUser();
+        }
+        axios.get(url, jwtHeader())
             .then(response => {
                 this.setState({
                     dogUrl: response.data,
@@ -39,9 +42,8 @@ export default class RandomDog extends Component {
     };
 
     getAverageRating = () => {
-        axios.post("/reviews/average", {
-            "url": this.state.dogUrl
-        }).then(response => {
+        axios.post("/reviews/average", {"url": this.state.dogUrl}, jwtHeader())
+            .then(response => {
             this.setState({
                 averageRating: response.data
             })

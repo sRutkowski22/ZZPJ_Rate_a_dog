@@ -7,7 +7,6 @@ import pl.lodz.p.it.zzpj.dogs.dto.AccountDto;
 import pl.lodz.p.it.zzpj.dogs.dto.DogDto;
 import pl.lodz.p.it.zzpj.dogs.dto.mappers.AccountMapper;
 import pl.lodz.p.it.zzpj.dogs.exceptions.AppBaseException;
-import pl.lodz.p.it.zzpj.dogs.model.Account;
 import pl.lodz.p.it.zzpj.dogs.services.AccountService;
 
 import java.util.List;
@@ -37,11 +36,6 @@ public class AccountController {
         accountService.editAccount(username, AccountMapper.mapFromDto(accountDto));
     }
 
-    @GetMapping("all")
-    public List<Account> getAll() {
-        return accountService.getAll();
-    }
-
     @PutMapping("/favorite/{username}")
     @PreAuthorize("#username == authentication.principal.username")
     public void addDogToFavorites(@PathVariable String username, @RequestBody DogDto dogDto) throws AppBaseException {
@@ -49,6 +43,7 @@ public class AccountController {
     }
 
     @GetMapping("/favorites/{username}")
+    @PreAuthorize("#username == authentication.principal.username")
     public List<String> getFavoriteDogs(@PathVariable String username) throws AppBaseException {
         return accountService.getFavoriteDogs(username);
     }

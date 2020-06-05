@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import axios from "axios";
-import {currentUser} from "../index";
+import {currentUser, jwtHeader} from "../index";
 
 export default class FavoriteDogs extends Component {
 
@@ -12,7 +12,7 @@ export default class FavoriteDogs extends Component {
     }
 
     componentDidMount = () => {
-        axios.get("/favorites/" + currentUser())
+        axios.get("/favorites/" + currentUser(), jwtHeader())
             .then(response => {
                 this.setState({
                     dogs: response.data

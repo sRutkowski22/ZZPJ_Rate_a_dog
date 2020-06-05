@@ -32,9 +32,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        String[] publicRoutes = new String[]{"/app", "/app/", "/app/login", "/app/register", "/api/login", "/api/register", "/api/dog/random", "/api/reviews/average"};
+        String[] privateRoutes = new String[]{"/app/**", "/api/**"};
+
         http.cors().and().csrf().disable()
-                .authorizeRequests().antMatchers("/**", "/api/login", "/api/register").permitAll()
-                .antMatchers("/api/**").authenticated()
+                .authorizeRequests()
+                .antMatchers(publicRoutes).permitAll()
+                .antMatchers(privateRoutes).hasAuthority("USER")
                 .and().sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 

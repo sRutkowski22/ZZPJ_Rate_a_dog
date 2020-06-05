@@ -8,7 +8,7 @@ import Register from "./components/Register";
 import NotFound from "./components/NotFound";
 import EditAccount from "./components/EditAccount";
 import RatedDogs from "./components/RatedDogs";
- import RandomBreedDog from "./components/RandomBreedDog";
+import RandomBreedDog from "./components/RandomBreedDog";
 import FavoriteDogs from "./components/FavoriteDogs";
 
 export default class App extends Component {
@@ -16,7 +16,7 @@ export default class App extends Component {
     render() {
         return (
             <React.Fragment>
-                <Router>
+                <Router basename="app">
                     <NavigationBar/>
                     <Container>
                         <Switch>
