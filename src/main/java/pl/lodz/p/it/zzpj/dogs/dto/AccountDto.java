@@ -3,8 +3,6 @@ package pl.lodz.p.it.zzpj.dogs.dto;
 import lombok.Builder;
 import lombok.Data;
 
-import java.util.Map;
-
 @Builder
 public @Data class AccountDto {
 
