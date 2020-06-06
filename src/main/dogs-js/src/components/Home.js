@@ -114,29 +114,27 @@ export default class RandomDog extends Component {
     render() {
         const { rating } = this.state;
         return (
-            <div>
-                <div className="image-div">
-                    <label style={{"padding-top": "20px"}} class="labels">Average rating</label>
+            <div className="image-div">
+                <label style={{"padding-top": "20px"}} class="labels">Average rating</label>
+                <StarRatingComponent
+                    starCount={5}
+                    value={this.state.averageRating}
+                    editing={false} />
+                <img alt="img" className="image-dog" src={this.state.dogUrl} />
+                <label class="labels">Your rating</label>
+                <div class="ratings">
                     <StarRatingComponent
                         starCount={5}
-                        value={this.state.averageRating}
-                        editing={false} />
-                    <img alt="img" className="image-dog" src={this.state.dogUrl} />
-                    <label class="labels">Your rating</label>
-                    <div class="ratings">
-                        <StarRatingComponent
-                            starCount={5}
-                            value={rating}
-                            onStarClick={this.changeRating.bind(this)} />
-                    </div>
-                    <div class="buttons">
-                        <Button variant="dark" name="rate-button" onClick={() => this.rateDog()} >Rate</Button>
-                        <div class="divider" />
-                        <Button variant="dark" name="confirm-button" onClick={() => this.getRandomDog()}>Next dog</Button>
-                    </div>
-                    <div>
-                        <Button variant="dark" onClick={() => this.addToFavorites()}>Add to favorites</Button>
-                    </div>
+                        value={rating}
+                        onStarClick={this.changeRating.bind(this)} />
+                </div>
+                <div class="buttons">
+                    <Button variant="dark" name="rate-button" onClick={() => this.rateDog()} >Rate</Button>
+                    <div class="divider" />
+                    <Button variant="dark" name="confirm-button" onClick={() => this.getRandomDog()}>Next dog</Button>
+                </div>
+                <div>
+                    <Button variant="dark" onClick={() => this.addToFavorites()}>Add to favorites</Button>
                 </div>
             </div>
         )
