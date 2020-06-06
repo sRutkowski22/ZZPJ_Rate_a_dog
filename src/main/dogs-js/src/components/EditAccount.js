@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import {Button, Form, FormControl, FormGroup, FormLabel} from "react-bootstrap";
 import axios from "axios";
-import Cookies from "universal-cookie";
 import {currentUser, jwtHeader} from "../index";
 import swal from "sweetalert";
 
@@ -15,7 +14,6 @@ export default class EditAccount extends Component {
             changePassword: false,
             loaded: false
         };
-        this.cookies = new Cookies();
     }
 
     componentDidMount = () => {
@@ -32,7 +30,7 @@ export default class EditAccount extends Component {
             console.log(error.response);
             this.props.history.goBack();
         });
-    }
+    };
 
     validateProperty = (property) => {
         let tempValid = {...this.state.valid};
@@ -141,7 +139,7 @@ export default class EditAccount extends Component {
                 </React.Fragment>
             );
         }
-    }
+    };
 
     renderForm = () => {
         if (this.state.loaded) {
@@ -166,7 +164,7 @@ export default class EditAccount extends Component {
                 </Form>
             );
         }
-    }
+    };
 
     render() {
         return (
@@ -174,7 +172,7 @@ export default class EditAccount extends Component {
                 <h1>{currentUser()}'s profile</h1>
                 <hr/>
                 {this.renderForm()}
-                <Button variant="dark" onClick={this.props.history.goBack}>Back</Button>
+                <Button style={{"margin-top": "5px"}} variant="dark" onClick={this.props.history.goBack}>Back</Button>
             </div>
         );
     }
