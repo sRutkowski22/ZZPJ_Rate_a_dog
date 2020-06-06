@@ -4,7 +4,7 @@ import BootstrapTable from "react-bootstrap-table-next";
 import axios from "axios";
 import {jwtHeader} from "../index";
 
-export default class RatedDogs extends Component{
+export default class RatedDogs extends Component {
 
     constructor(props) {
         super(props);
@@ -80,7 +80,7 @@ export default class RatedDogs extends Component{
             <div>
                 <h1>Rated Dogs</h1>
                 {this.renderTable()}
-                </div>
+            </div>
         )
     }
 

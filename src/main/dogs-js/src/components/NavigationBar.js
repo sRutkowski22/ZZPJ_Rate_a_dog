@@ -29,7 +29,13 @@ export default class NavigationBar extends Component {
 
                     <Nav.Item>
                         <Nav.Link>
-                            <Link class="links" id="favoriteDogs" to="/favoriteDogs">My favorite dogs</Link>
+                            <Link class="links" to="/randomBreedDog">Random dog</Link>
+                        </Nav.Link>
+                    </Nav.Item>
+
+                    <Nav.Item>
+                        <Nav.Link>
+                            <Link class="links" id="favoriteDogs" to="/favoriteDogs">Favorite dogs</Link>
                         </Nav.Link>
                     </Nav.Item>
 
@@ -41,13 +47,7 @@ export default class NavigationBar extends Component {
 
                     <Nav.Item>
                         <Nav.Link>
-                            <Link class="links" to="/randomBreedDog">Random dog by breed</Link>
-                        </Nav.Link>
-                    </Nav.Item>
-
-                    <Nav.Item>
-                        <Nav.Link>
-                            <Link class="links" to="/aboutUs">About us</Link>
+                            <Link class="links" to="/about">About</Link>
                         </Nav.Link>
                     </Nav.Item>
 
@@ -68,7 +68,7 @@ export default class NavigationBar extends Component {
 
                     <Nav.Item>
                         <Nav.Link>
-                            <Link class="links" to="/aboutUs">About us</Link>
+                            <Link class="links" to="/about">About</Link>
                         </Nav.Link>
                     </Nav.Item>
 
@@ -98,7 +98,6 @@ export default class NavigationBar extends Component {
                     {this.renderForGuest()}
                 </Navbar.Collapse>
             </Navbar>
-
         );
     }
 }
