@@ -13,7 +13,7 @@ export default class NavigationBar extends Component {
     }
 
     handleLogout = () => {
-        this.cookies.remove("jwt");
+        this.cookies.remove("jwt", {path: "/"});
         window.location.replace("/");
     }
 

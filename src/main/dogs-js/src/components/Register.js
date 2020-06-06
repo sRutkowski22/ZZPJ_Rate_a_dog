@@ -70,7 +70,7 @@ export default class Register extends Component {
                 .then(response => {
                     if (response.status === 200) {
                         swal({
-                            title: "Registered successfully.",
+                            title: "Registered successfully",
                             icon: "success",
                             closeOnClickOutside: true
                         });
@@ -78,14 +78,14 @@ export default class Register extends Component {
                     }
                 }).catch(error => {
                 swal({
-                    title: "An error occurred.",
-                    text: "Please try again.",
+                    title: "An error occurred",
+                    text: "Please try again",
                     icon: "error",
                 });
             });
         } else {
             swal({
-                title: "Please fill out every field in the form.",
+                title: "Please fill out every field in the form",
                 icon: "warning",
                 closeOnClickOutside: true
             });
