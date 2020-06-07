@@ -25,7 +25,7 @@ public class DogService {
     private final Environment env;
 
     public List<String> getBreedList() {
-        ResponseEntity<String> response = restTemplate.getForEntity(getProperty("dogs.breed-list-url"), String.class);
+        ResponseEntity<String> response = restTemplate.getForEntity(getProperty("breed-list-url"), String.class);
         JSONObject jsonObject = parseResponseEntity(response);
         JSONObject breeds = (JSONObject) jsonObject.get("message");
         Set<String> entries = breeds.keySet();
@@ -35,7 +35,7 @@ public class DogService {
     public String getRandomDogByBreed(String breed) {
         String dogUrl = "";
         try {
-            ResponseEntity<String> response = restTemplate.getForEntity(getProperty("dogs.random-by-breed-begin") + breed + getProperty("dogs.random-by-breed-end"), String.class);
+            ResponseEntity<String> response = restTemplate.getForEntity(getProperty("random-by-breed-begin") + breed + getProperty("random-by-breed-end"), String.class);
             JSONObject jsonObject = parseResponseEntity(response);
             dogUrl = (String) jsonObject.get("message");
         }
@@ -46,7 +46,7 @@ public class DogService {
     }
 
     public String getRandomDog() {
-        ResponseEntity<String> response = restTemplate.getForEntity(getProperty("dogs.random-dog-url"), String.class);
+        ResponseEntity<String> response = restTemplate.getForEntity(getProperty("random-dog-url"), String.class);
         JSONObject jsonObject = parseResponseEntity(response);
         return (String) jsonObject.get("message");
     }
@@ -75,7 +75,7 @@ public class DogService {
             }
         }
 
-        ResponseEntity<String> response = restTemplate.getForEntity(getProperty("dogs.random-by-breed-begin") + breed + getProperty("dogs.random-by-breed-end"), String.class);
+        ResponseEntity<String> response = restTemplate.getForEntity(getProperty("random-by-breed-begin") + breed + getProperty("random-by-breed-end"), String.class);
         JSONObject jsonObject = parseResponseEntity(response);
         return (String) jsonObject.get("message");
     }
