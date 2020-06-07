@@ -116,17 +116,19 @@ export default class RandomDog extends Component {
         return (
             <div className="image-div">
                 <label style={{"padding-top": "20px"}} class="labels">Average rating</label>
-                <StarRatingComponent
-                    starCount={5}
-                    value={this.state.averageRating}
-                    editing={false} />
+                <div class="ratings">
+                    <StarRatingComponent
+                        starCount={5}
+                        value={this.state.averageRating}
+                        editing={false}/>
+                </div>
                 <img alt="img" className="image-dog" src={this.state.dogUrl} />
                 <label class="labels">Your rating</label>
                 <div class="ratings">
                     <StarRatingComponent
                         starCount={5}
                         value={rating}
-                        onStarClick={this.changeRating.bind(this)} />
+                        onStarClick={this.changeRating.bind(this)}/>
                 </div>
                 <div class="buttons">
                     <Button variant="dark" name="rate-button" onClick={() => this.rateDog()} >Rate</Button>

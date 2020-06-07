@@ -56,7 +56,7 @@ export default class Login extends Component {
         if (this.checkValidation()) {
             axios.post("/login", this.state.user)
                 .then(response => {
-                    this.cookies.set("jwt", response.data["jwt"]);
+                    this.cookies.set("jwt", response.data["jwt"], {path: "/"});
                     this.props.history.push("/");
                     window.location.reload();
                 }).catch(error => {
@@ -67,7 +67,7 @@ export default class Login extends Component {
             });
         } else {
             swal({
-                title: "Please fill out every field in the form.",
+                title: "Please fill out every field in the form",
                 icon: "warning",
                 closeOnClickOutside: true
             });

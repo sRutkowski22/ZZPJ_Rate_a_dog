@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { Nav, Navbar } from 'react-bootstrap';
+import {Nav, Navbar, NavDropdown} from 'react-bootstrap';
 import Cookies from "universal-cookie";
 import { currentUser } from "../index";
 import "./Main.css";
@@ -13,7 +13,7 @@ export default class NavigationBar extends Component {
     }
 
     handleLogout = () => {
-        this.cookies.remove("jwt");
+        this.cookies.remove("jwt", {path: "/"});
         window.location.replace("/");
     }
 
@@ -21,41 +21,55 @@ export default class NavigationBar extends Component {
         if (currentUser() !== "") {
             return (
                 <Nav className="ml-auto">
-                    <Nav.Item>
-                        <Nav.Link>
-                            <Link class="links" id="account" to="/account">My profile</Link>
-                        </Nav.Link>
-                    </Nav.Item>
+                    <NavDropdown id="dropdown" title={"Welcome, " + currentUser()}>
+                        <NavDropdown.Item>
+                            <Nav.Item>
+                                <Nav.Link>
+                                    <Link id="account" to="/account">My profile</Link>
+                                </Nav.Link>
+                            </Nav.Item>
+                        </NavDropdown.Item>
 
-                    <Nav.Item>
-                        <Nav.Link>
-                            <Link class="links" id="favoriteDogs" to="/favoriteDogs">My favorite dogs</Link>
-                        </Nav.Link>
-                    </Nav.Item>
+                        <NavDropdown.Item>
+                            <Nav.Item>
+                                <Nav.Link>
+                                    <Link to="/randomBreedDog">Random dog</Link>
+                                </Nav.Link>
+                            </Nav.Item>
+                        </NavDropdown.Item>
 
-                    <Nav.Item>
-                        <Nav.Link>
-                            <Link class="links" to="/ratedDogs">Rated dogs</Link>
-                        </Nav.Link>
-                    </Nav.Item>
+                        <NavDropdown.Item>
+                            <Nav.Item>
+                                <Nav.Link>
+                                    <Link id="favoriteDogs" to="/favoriteDogs">Favorite dogs</Link>
+                                </Nav.Link>
+                            </Nav.Item>
+                        </NavDropdown.Item>
 
-                    <Nav.Item>
-                        <Nav.Link>
-                            <Link class="links" to="/randomBreedDog">Random dog by breed</Link>
-                        </Nav.Link>
-                    </Nav.Item>
+                        <NavDropdown.Item>
+                            <Nav.Item>
+                                <Nav.Link>
+                                    <Link to="/ratedDogs">Rated dogs</Link>
+                                </Nav.Link>
+                            </Nav.Item>
+                        </NavDropdown.Item>
 
-                    <Nav.Item>
-                        <Nav.Link>
-                            <Link class="links" to="/aboutUs">About us</Link>
-                        </Nav.Link>
-                    </Nav.Item>
+                        <NavDropdown.Item>
+                            <Nav.Item>
+                                <Nav.Link>
+                                    <Link to="/about">About</Link>
+                                </Nav.Link>
+                            </Nav.Item>
+                        </NavDropdown.Item>
 
-                    <Nav.Item>
-                        <Nav.Link>
-                            <Link class="links" id="logout" to="/" onClick={this.handleLogout}>Logout</Link>
-                        </Nav.Link>
-                    </Nav.Item>
+                        <NavDropdown.Item>
+                            <Nav.Item>
+                                <Nav.Link>
+                                    <Link id="logout" to="/" onClick={this.handleLogout}>Logout</Link>
+                                </Nav.Link>
+                            </Nav.Item>
+                        </NavDropdown.Item>
+                    </NavDropdown>
                 </Nav>
             );
         }
@@ -65,24 +79,25 @@ export default class NavigationBar extends Component {
         if (currentUser() === "") {
             return (
                 <Nav className="ml-auto">
+                    <NavDropdown  id="dropdown" title="Welcome, Guest">
+                        <NavDropdown.Item>
+                            <Nav.Link>
+                                <Link id="login" to="/login">Login</Link>
+                            </Nav.Link>
+                        </NavDropdown.Item>
 
-                    <Nav.Item>
-                        <Nav.Link>
-                            <Link class="links" to="/aboutUs">About us</Link>
-                        </Nav.Link>
-                    </Nav.Item>
+                        <NavDropdown.Item>
+                            <Nav.Link>
+                                <Link id="register" to="/register">Register</Link>
+                            </Nav.Link>
+                        </NavDropdown.Item>
 
-                    <Nav.Item>
-                        <Nav.Link>
-                            <Link class="links" id="login" to="/login">Login</Link>
-                        </Nav.Link>
-                    </Nav.Item>
-
-                    <Nav.Item>
-                        <Nav.Link>
-                            <Link class="links" id="register" to="/register">Register</Link>
-                        </Nav.Link>
-                    </Nav.Item>
+                        <NavDropdown.Item>
+                            <Nav.Link>
+                                <Link to="/about">About</Link>
+                            </Nav.Link>
+                        </NavDropdown.Item>
+                    </NavDropdown>
                 </Nav>
             );
         }
@@ -98,7 +113,6 @@ export default class NavigationBar extends Component {
                     {this.renderForGuest()}
                 </Navbar.Collapse>
             </Navbar>
-
         );
     }
 }

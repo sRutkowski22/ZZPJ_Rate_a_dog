@@ -32,7 +32,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        String[] publicRoutes = new String[]{"/app", "/app/", "/app/login", "/app/register", "/api/login", "/api/register", "/api/dog/random", "/api/reviews/average"};
+        String[] publicRoutes = new String[]{"/app", "/app/", "/app/about", "/app/login", "/app/register", "/api/login", "/api/register", "/api/dog/random", "/api/reviews/average"};
         String[] privateRoutes = new String[]{"/app/**", "/api/**"};
 
         http.cors().and().csrf().disable()

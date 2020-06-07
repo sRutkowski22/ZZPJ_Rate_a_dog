@@ -1,8 +1,7 @@
 import React, {Component} from "react";
 import ReactPlayer from "react-player";
-import {Link} from "react-router-dom";
 
-export default class AboutUs extends Component {
+export default class About extends Component {
 
     constructor(props) {
         super(props);
