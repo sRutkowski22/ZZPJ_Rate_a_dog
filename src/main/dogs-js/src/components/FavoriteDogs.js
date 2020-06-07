@@ -25,10 +25,10 @@ export default class FavoriteDogs extends Component {
     render() {
         const pictures = [];
         for(let i=0; i<this.state.dogs.length; i++)
-            pictures.push(<img style={{padding: "10px"}} src={this.state.dogs[i]} alt="img" />);
+            pictures.push(<img style={{padding: "10px"}} src={this.state.dogs[i]} alt="Loading" />);
         return (
-            <div style={{"text-align": "center", "max-width": "500px"}}>
-                <h1 style={{"padding-bottom": "30px"}}>My favorite dogs</h1>
+            <div style={{textAlign: "center", maxWidth: "500px"}}>
+                <h1 style={{paddingBottom: "30px"}}>My favorite dogs</h1>
                 {pictures}
             </div>
         )

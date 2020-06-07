@@ -3,6 +3,9 @@ import paginationFactory from "react-bootstrap-table2-paginator";
 import BootstrapTable from "react-bootstrap-table-next";
 import axios from "axios";
 import {jwtHeader} from "../index";
+import FormControl from "react-bootstrap/FormControl";
+import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css";
+import "react-bootstrap-table2-paginator/dist/react-bootstrap-table2-paginator.min.css";
 
 export default class RatedDogs extends Component {
 
@@ -38,7 +41,7 @@ export default class RatedDogs extends Component {
     }
 
     displayImage = (cell) => {
-            return <img alt="img" src={cell} width={130} height={130} />;
+            return <img alt="Loading" src={cell} width={130} height={130} />;
     };
 
     componentDidMount = () => {
@@ -53,6 +56,13 @@ export default class RatedDogs extends Component {
                     console.log(review)
                 }
             })
+    };
+
+    handleSearch = (value) => {
+        axios.get("/reviews/" + value, jwtHeader())
+            .then(response => {
+                this.setState({reviews: response.data});
+            });
     };
 
     renderTable = () => {
@@ -79,9 +89,10 @@ export default class RatedDogs extends Component {
         return(
             <div>
                 <h1>Rated Dogs</h1>
-                {this.renderTable()}
-            </div>
+                    <FormControl placeholder="Search by breed or username" id="searchBar" onChange={() => this.handleSearch(document.getElementById("searchBar").value)}/>
+                    <hr/>
+                    {this.renderTable()}
+                </div>
         )
     }
-
 }

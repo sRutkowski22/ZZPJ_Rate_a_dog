@@ -33,7 +33,7 @@ export default class NavigationBar extends Component {
                         <NavDropdown.Item>
                             <Nav.Item>
                                 <Nav.Link>
-                                    <Link to="/randomBreedDog">Random dog</Link>
+                                    <Link to="/randomBreedDog">Dogs by breed</Link>
                                 </Nav.Link>
                             </Nav.Item>
                         </NavDropdown.Item>

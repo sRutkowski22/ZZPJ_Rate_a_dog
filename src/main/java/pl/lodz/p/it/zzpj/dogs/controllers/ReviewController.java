@@ -32,6 +32,13 @@ public class ReviewController {
                 .collect(Collectors.toList());
     }
 
+    @GetMapping("/reviews/{filter}")
+    public List<ReviewDto> filterReviews(@PathVariable String filter) {
+        return reviewService.filterReviews(filter).stream()
+                .map(ReviewMapper::mapToDto)
+                .collect(Collectors.toList());
+    }
+
     @GetMapping("/review/{url}/{username}")
     @PreAuthorize("#username == authentication.principal.username")
     public ReviewDto getReview(@PathVariable String url,

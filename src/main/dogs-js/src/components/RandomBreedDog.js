@@ -132,11 +132,13 @@ export default class RandomDog extends Component {
                 <Select options={this.state.breedListOptions} value = {breed} onChange={this.handleDogChange}/>
                 <div className="image-div">
                     <label style={{"padding-top": "20px"}} className="labels">Average rating</label>
-                    <StarRatingComponent
-                        starCount={5}
-                        value={this.state.averageRating}
-                        editing={false} />
-                    <img className="image-dog" src={this.state.dogUrl} alt="" />
+                    <div className="ratings">
+                        <StarRatingComponent
+                            starCount={5}
+                            value={this.state.averageRating}
+                            editing={false}/>
+                    </div>
+                    <img className="image-dog" src={this.state.dogUrl} alt="Loading" />
                     <label className="labels">Your rating</label>
                     <div className="ratings">
                         <StarRatingComponent

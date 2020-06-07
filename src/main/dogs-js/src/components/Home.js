@@ -122,7 +122,7 @@ export default class RandomDog extends Component {
                         value={this.state.averageRating}
                         editing={false}/>
                 </div>
-                <img alt="img" className="image-dog" src={this.state.dogUrl} />
+                <img alt="Loading" className="image-dog" src={this.state.dogUrl} />
                 <label class="labels">Your rating</label>
                 <div class="ratings">
                     <StarRatingComponent
