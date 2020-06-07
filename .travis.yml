@@ -7,4 +7,4 @@ deploy:
   on:
     repo: sRutkowski22/ZZPJ_Rate_a_dog
 before_install:
-- chmod +x mvnw
+  - chmod +x mvnw
