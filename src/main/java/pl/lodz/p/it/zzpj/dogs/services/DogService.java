@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+import org.springframework.core.env.Environment;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
@@ -20,26 +21,21 @@ import java.util.*;
 public class DogService {
 
     private final AccountService accountService;
-    private final RestTemplate restTemplate = new RestTemplate();
-    private final String randomByBreedBegin = "https://dog.ceo/api/breed/";
-    private final String randomByBreedEnd = "/images/random";
-    private final String randomDogURL = "https://dog.ceo/api/breeds/image/random";
-    private final String breedListURL = "https://dog.ceo/api/breeds/list/all";
-    private final String resourceUrl = "https://dog.ceo/api/breeds/image/random";
+    private final RestTemplate restTemplate;
+    private final Environment env;
 
     public List<String> getBreedList() {
-        ResponseEntity<String> response = restTemplate.getForEntity(breedListURL, String.class);
+        ResponseEntity<String> response = restTemplate.getForEntity(getProperty("dogs.breed-list-url"), String.class);
         JSONObject jsonObject = parseResponseEntity(response);
         JSONObject breeds = (JSONObject) jsonObject.get("message");
         Set<String> entries = breeds.keySet();
-        List<String> breedList = new ArrayList<>(entries);
-        return breedList;
+        return new ArrayList<>(entries);
     }
 
     public String getRandomDogByBreed(String breed) {
         String dogUrl = "";
         try {
-            ResponseEntity<String> response = restTemplate.getForEntity(randomByBreedBegin + breed + randomByBreedEnd, String.class);
+            ResponseEntity<String> response = restTemplate.getForEntity(getProperty("dogs.random-by-breed-begin") + breed + getProperty("dogs.random-by-breed-end"), String.class);
             JSONObject jsonObject = parseResponseEntity(response);
             dogUrl = (String) jsonObject.get("message");
         }
@@ -50,10 +46,9 @@ public class DogService {
     }
 
     public String getRandomDog() {
-        ResponseEntity<String> response = restTemplate.getForEntity(randomDogURL, String.class);
+        ResponseEntity<String> response = restTemplate.getForEntity(getProperty("dogs.random-dog-url"), String.class);
         JSONObject jsonObject = parseResponseEntity(response);
-        String dogUrl = (String) jsonObject.get("message");
-        return dogUrl;
+        return (String) jsonObject.get("message");
     }
 
     public String getRandomDog(String user) throws AppBaseException {
@@ -80,10 +75,9 @@ public class DogService {
             }
         }
 
-        ResponseEntity<String> response = restTemplate.getForEntity(randomByBreedBegin + breed + randomByBreedEnd, String.class);
+        ResponseEntity<String> response = restTemplate.getForEntity(getProperty("dogs.random-by-breed-begin") + breed + getProperty("dogs.random-by-breed-end"), String.class);
         JSONObject jsonObject = parseResponseEntity(response);
-        String dogUrl = (String) jsonObject.get("message");
-        return dogUrl;
+        return (String) jsonObject.get("message");
     }
 
     private JSONObject parseResponseEntity(ResponseEntity<String> response) {
@@ -95,5 +89,9 @@ public class DogService {
             e.printStackTrace();
         }
         return jsonObject;
+    }
+
+    private String getProperty(String key) {
+        return Objects.requireNonNull(env.getProperty(key));
     }
 }

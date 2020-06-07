@@ -9,6 +9,7 @@ import de.flapdoodle.embed.mongo.distribution.Version;
 import de.flapdoodle.embed.process.runtime.Network;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.data.mongodb.config.AbstractMongoClientConfiguration;
+import org.springframework.lang.NonNull;
 
 import java.io.IOException;
 
@@ -18,6 +19,7 @@ public class TestMongoConfiguration extends AbstractMongoClientConfiguration {
     private static MongodExecutable mongodExecutable;
 
     @Override
+    @NonNull
     protected String getDatabaseName() {
         return "test";
     }
