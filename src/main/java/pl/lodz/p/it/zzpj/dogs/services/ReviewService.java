@@ -8,6 +8,7 @@ import pl.lodz.p.it.zzpj.dogs.repositories.ReviewRepository;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -26,6 +27,13 @@ public class ReviewService {
 
     public List<Review> getAllReviews() {
         return reviewRepository.findAll();
+    }
+
+    public List<Review> filterReviews(String filter) {
+        return reviewRepository.findAll().stream()
+                .filter(review -> review.getBreed().toLowerCase().contains(filter.toLowerCase())
+                        || review.getUsername().toLowerCase().contains(filter.toLowerCase()))
+                .collect(Collectors.toList());
     }
 
     public Review getReview(String url, String username) throws ReviewException {
