@@ -5,8 +5,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.env.Environment;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
@@ -19,11 +17,11 @@ import java.util.*;
 
 @Slf4j
 @Service
+@AllArgsConstructor
 public class DogService {
 
-    @Autowired
+
     private AccountService accountService;
-    @Autowired
     private RestTemplate restTemplate;
 
     public List<String> getBreedList() {
