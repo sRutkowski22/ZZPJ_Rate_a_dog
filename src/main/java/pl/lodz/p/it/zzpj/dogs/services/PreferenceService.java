@@ -2,6 +2,7 @@ package pl.lodz.p.it.zzpj.dogs.services;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import pl.lodz.p.it.zzpj.dogs.exceptions.AppBaseException;
 import pl.lodz.p.it.zzpj.dogs.model.Account;
@@ -34,10 +35,10 @@ public class PreferenceService {
     private double calculatePreference(double preference, int rating) {
         double factor = getFactorByRating(rating);
         if(factor < 0){  //preference will be lowered
-            return preference += preference * factor;
+            return preference += Math.max(preference * factor, factor);
         }
         else {  //preference will be increased
-            return preference += (2.0 - preference) * factor;
+            return preference += Math.min((2.0 - preference) * factor, factor);
         }
     }
 
