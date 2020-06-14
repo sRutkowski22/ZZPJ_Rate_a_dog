@@ -2,7 +2,6 @@ package pl.lodz.p.it.zzpj.dogs.services;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import pl.lodz.p.it.zzpj.dogs.exceptions.AppBaseException;
 import pl.lodz.p.it.zzpj.dogs.model.Account;
@@ -21,11 +20,9 @@ public class PreferenceService {
             Account account = accountService.getAccount(username);
             Map<String, Double> breedPreferences = account.getBreedPreferences();
             Double preference = breedPreferences.getOrDefault(breed, 1.0); //Sets preference to 1.0 if breed wasn't in the map
-            log.info("Preference for:" + breed +" before: "+ preference);
             preference = calculatePreference(preference, rating);
             breedPreferences.put(breed,preference);
             account.setBreedPreferences(breedPreferences);
-            log.info("After: " + preference);
             accountService.editAccount(username,account);
         } catch (AppBaseException e) {
             e.printStackTrace();
@@ -35,32 +32,26 @@ public class PreferenceService {
     private double calculatePreference(double preference, int rating) {
         double factor = getFactorByRating(rating);
         if(factor < 0){  //preference will be lowered
-            return preference += Math.max(preference * factor, factor);
+            return preference + Math.max(preference * factor, factor);
         }
         else {  //preference will be increased
-            return preference += Math.min((2.0 - preference) * factor, factor);
+            return preference + Math.min((2.0 - preference) * factor, factor);
         }
     }
 
-    private double getFactorByRating(int rating){
-        double value = 0;
+    private double getFactorByRating(int rating){ //Hardcoded cause properties is skopcone
         switch (rating){
             case 1:
-                value = -0.8;
-                break;
+                return  -0.8;
             case 2:
-                value = -0.5;
-                break;
+                return -0.5;
             case 3:
-                value = -0.2;
-                break;
+                return -0.2;
             case 4:
-                value = 0.4;
-                break;
+                return 0.4;
             case 5:
-                value = 0.8;
-                break;
+                return 0.8;
         }
-        return value;
+        return 0.0;
     }
 }
