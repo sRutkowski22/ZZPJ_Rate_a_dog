@@ -48,6 +48,7 @@ public class AccountService {
                 }
                 temp.setFirstName(account.getFirstName());
                 temp.setLastName(account.getLastName());
+                temp.setBreedPreferences(account.getBreedPreferences());
                 accountRepository.save(temp);
             } else {
                 throw new AccountException("Usernames do not match.");

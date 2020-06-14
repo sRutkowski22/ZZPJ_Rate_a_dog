@@ -15,6 +15,7 @@ import java.util.stream.Collectors;
 public class ReviewService {
 
     private final ReviewRepository reviewRepository;
+    private final PreferenceService preferenceService;
 
     public void addReview(Review review) {
         if(reviewRepository.findByUrlAndUsername(review.getUrl(), review.getUsername()).isPresent()) {
@@ -23,6 +24,8 @@ public class ReviewService {
             tmpReview.setCreationDate(review.getCreationDate());
             reviewRepository.save(tmpReview);
         } else reviewRepository.insert(review);
+
+        preferenceService.adjustPreference(review.getUsername(),review.getBreed(),review.getRating());
     }
 
     public List<Review> getAllReviews() {
