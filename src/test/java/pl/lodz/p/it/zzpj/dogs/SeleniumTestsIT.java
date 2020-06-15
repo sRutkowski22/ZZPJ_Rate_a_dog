@@ -2,11 +2,13 @@ package pl.lodz.p.it.zzpj.dogs;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 import lombok.extern.slf4j.Slf4j;
+import org.junit.Assert;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -16,6 +18,7 @@ import org.springframework.context.annotation.Import;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 import java.util.Properties;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -118,5 +121,23 @@ public class SeleniumTestsIT {
         logout();
         assertEquals("Welcome, Guest", driver.findElement(By.id("dropdown")).getText());
         assertNull(driver.manage().getCookieNamed("jwt"));
+    }
+
+    @Test
+    @Order(5)
+    void getRandomDogTest() throws InterruptedException {
+        login();
+        Thread.sleep(2000);
+        List<WebElement> listImages = driver.findElements(By.tagName("img"));
+        listImages
+                .forEach(
+                        webElement -> Assert.assertTrue(webElement.getAttribute("src").contains("https://images.dog.ceo/breeds/")));
+        driver.findElement(By.name("confirm-button")).click();
+        Thread.sleep(1000);
+        listImages = driver.findElements(By.tagName("img"));
+        listImages
+                .forEach(
+                        webElement -> Assert.assertTrue(webElement.getAttribute("src").contains("https://images.dog.ceo/breeds/")));
+        logout();
     }
 }
