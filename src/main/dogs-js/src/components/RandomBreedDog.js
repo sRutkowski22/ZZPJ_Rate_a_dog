@@ -67,6 +67,7 @@ export default class RandomDog extends Component {
             .then(response => {
                 this.setState({
                     dogUrl: response.data,
+                    rating: 0,
                     averageRating: 0
                 });
             }).then(() => {
