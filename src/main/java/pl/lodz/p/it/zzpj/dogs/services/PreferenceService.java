@@ -3,6 +3,7 @@ package pl.lodz.p.it.zzpj.dogs.services;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import pl.lodz.p.it.zzpj.dogs.configuration.PreferencesFactorsConfiguration;
 import pl.lodz.p.it.zzpj.dogs.exceptions.AppBaseException;
 import pl.lodz.p.it.zzpj.dogs.model.Account;
 
@@ -39,19 +40,7 @@ public class PreferenceService {
         }
     }
 
-    private double getFactorByRating(int rating){ //Hardcoded cause properties is skopcone
-        switch (rating){
-            case 1:
-                return  -0.8;
-            case 2:
-                return -0.5;
-            case 3:
-                return -0.2;
-            case 4:
-                return 0.4;
-            case 5:
-                return 0.8;
-        }
-        return 0.0;
+    public double getFactorByRating(int rating){
+        return PreferencesFactorsConfiguration.valueByRating(rating);
     }
 }
