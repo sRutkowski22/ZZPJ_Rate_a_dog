@@ -36,7 +36,7 @@ public class PreferenceService {
             return preference + Math.max(preference * factor, factor);
         }
         else {  //preference will be increased
-            return preference + Math.min((2.0 - preference) * factor, factor);
+            return preference + Math.min((10.0 - preference) * factor, factor);
         }
     }
 
