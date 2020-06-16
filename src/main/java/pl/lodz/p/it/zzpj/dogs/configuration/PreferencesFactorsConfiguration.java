@@ -12,7 +12,8 @@ public enum PreferencesFactorsConfiguration {
     RATING_2(2,-0.5),
     RATING_3(3,-0.2),
     RATING_4(4,0.4),
-    RATING_5(5,0.8);
+    RATING_5(5,0.8),
+    DEFAULT(0,0.0);
 
     @Getter
     private final Integer key;
@@ -26,7 +27,7 @@ public enum PreferencesFactorsConfiguration {
         }
     }
 
-    public static Double valueByKey(Integer key){
-        return BY_KEY.get(key);
+    public static Double valueByRating(Integer key){
+        return BY_KEY.getOrDefault(key,BY_KEY.get(0));
     }
 }

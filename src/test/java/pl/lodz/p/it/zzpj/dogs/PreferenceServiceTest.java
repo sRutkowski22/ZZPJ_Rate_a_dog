@@ -30,6 +30,6 @@ public class PreferenceServiceTest {
     private void cleanDatabase() {
         accountRepository.deleteAll();
     }
-    
+
 }
 
