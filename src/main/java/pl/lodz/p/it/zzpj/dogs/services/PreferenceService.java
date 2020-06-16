@@ -40,7 +40,7 @@ public class PreferenceService {
         }
     }
 
-    private double getFactorByRating(int rating){
+    public double getFactorByRating(int rating){
         return PreferencesFactorsConfiguration.valueByRating(rating);
     }
 }
