@@ -50,7 +50,7 @@ public class PreferenceServiceTest {
         Account account = Account.builder().username("preftest").password("password123").firstName("preftest").build();
         accountService.addAccount(account);
         preferenceService.adjustPreference("preftest","shiba",5);
-        double expectedValue = 1.0 + PreferencesFactorsConfiguration.RATING_5.getValue();
+        double expectedValue = 2.0 + PreferencesFactorsConfiguration.RATING_5.getValue();
         double actualValue = accountService
                             .getAccount("preftest")
                             .getBreedPreferences()
